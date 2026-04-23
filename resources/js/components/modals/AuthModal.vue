@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
+import router from "../../router";
 import {
     XMarkIcon,
     BoltIcon,
@@ -31,7 +32,10 @@ const handleSignIn = async () => {
         });
 
         console.log(result);
+        // Save token to localStorage
+        localStorage.setItem("auth_token", result.data.token);
         authModal.close();
+        router.push("/dashboard");
     } catch (err) {
         error.value = err.response?.data?.message
             ? err.response.data.message

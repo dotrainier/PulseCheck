@@ -1,0 +1,560 @@
+<template>
+    <div class="min-h-screen bg-[#0D0D12] text-white">
+        <!-- Header -->
+        <div class="border-b border-white/10 bg-[#0D0D12]/90 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1
+                            class="text-2xl font-bold tracking-tight"
+                            :style="{
+                                fontFamily:
+                                    'Cabinet Grotesk, system-ui, sans-serif',
+                            }"
+                        >
+                            Dashboard
+                        </h1>
+                        <p class="text-sm text-gray-400 mt-1">
+                            System health overview and analytics
+                        </p>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 text-xs text-gray-500"
+                        :style="{ fontFamily: 'JetBrains Mono, monospace' }"
+                    >
+                        <div class="flex items-center gap-1.5">
+                            <div
+                                class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"
+                            ></div>
+                            <span>Last updated: {{ lastUpdated }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <!-- System Status Banner -->
+            <div
+                class="flex items-center gap-3 p-4 rounded-lg"
+                :class="{
+                    'bg-cyan-500/5 border border-cyan-500/20':
+                        systemStatus === 'operational',
+                    'bg-red-500/5 border border-red-500/20':
+                        systemStatus === 'down',
+                    'bg-yellow-500/5 border border-yellow-500/20':
+                        systemStatus === 'degraded',
+                }"
+            >
+                <StatusIndicator :status="systemStatus" size="md" />
+                <div class="flex-1">
+                    <div
+                        class="font-semibold"
+                        :class="{
+                            'text-cyan-300': systemStatus === 'operational',
+                            'text-red-300': systemStatus === 'down',
+                            'text-yellow-300': systemStatus === 'degraded',
+                        }"
+                    >
+                        {{
+                            systemStatus === "operational"
+                                ? "All systems operational"
+                                : systemStatus === "degraded"
+                                  ? "Some systems experiencing issues"
+                                  : "System outage detected"
+                        }}
+                    </div>
+                    <div class="text-xs text-gray-500 mt-0.5">
+                        {{ operationalCount }} of {{ totalMonitors }} monitors
+                        running smoothly
+                    </div>
+                </div>
+                <router-link
+                    to="/monitors"
+                    class="px-3 py-1.5 text-sm text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 rounded-lg transition-all"
+                >
+                    View Monitors →
+                </router-link>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-5 bg-[#16161E] border border-white/10 rounded-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-sm text-gray-400">Total Monitors</div>
+                        <div
+                            class="p-2 bg-gradient-to-br from-cyan-500/20 to-teal-500/20 rounded-lg"
+                        >
+                            <ChartBarIcon class="w-4 h-4 text-cyan-400" />
+                        </div>
+                    </div>
+                    <div
+                        class="text-3xl font-bold"
+                        :style="{ fontFamily: 'JetBrains Mono, monospace' }"
+                    >
+                        {{ totalMonitors }}
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">
+                        Active monitoring
+                    </div>
+                </div>
+
+                <div class="p-5 bg-[#16161E] border border-white/10 rounded-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-sm text-gray-400">Uptime (30d)</div>
+                        <div
+                            class="p-2 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-lg"
+                        >
+                            <ArrowTrendingUpIcon
+                                class="w-4 h-4 text-emerald-400"
+                            />
+                        </div>
+                    </div>
+                    <div
+                        class="text-3xl font-bold text-emerald-400"
+                        :style="{ fontFamily: 'JetBrains Mono, monospace' }"
+                    >
+                        {{ averageUptime }}%
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">
+                        Average across all monitors
+                    </div>
+                </div>
+
+                <div class="p-5 bg-[#16161E] border border-white/10 rounded-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-sm text-gray-400">Avg Response</div>
+                        <div
+                            class="p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg"
+                        >
+                            <BoltIcon class="w-4 h-4 text-purple-400" />
+                        </div>
+                    </div>
+                    <div
+                        class="text-3xl font-bold"
+                        :style="{ fontFamily: 'JetBrains Mono, monospace' }"
+                    >
+                        {{ averageResponseTime }}ms
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">
+                        Global average latency
+                    </div>
+                </div>
+
+                <div class="p-5 bg-[#16161E] border border-white/10 rounded-lg">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-sm text-gray-400">Incidents</div>
+                        <div
+                            class="p-2 bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-lg"
+                        >
+                            <ExclamationTriangleIcon
+                                class="w-4 h-4 text-red-400"
+                            />
+                        </div>
+                    </div>
+                    <div
+                        class="text-3xl font-bold"
+                        :style="{ fontFamily: 'JetBrains Mono, monospace' }"
+                    >
+                        {{ totalIncidents }}
+                    </div>
+                    <div class="text-xs text-gray-500 mt-1">Last 7 days</div>
+                </div>
+            </div>
+
+            <!-- Response Time Chart -->
+            <div class="bg-[#16161E] border border-white/10 rounded-lg p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-lg font-semibold">
+                            Response Time Trend
+                        </h2>
+                        <p class="text-xs text-gray-500 mt-1">
+                            Average response time over the last 24 hours
+                        </p>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 text-xs text-gray-500"
+                        :style="{ fontFamily: 'JetBrains Mono, monospace' }"
+                    >
+                        <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
+                        <span>{{ averageResponseTime }}ms avg</span>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <svg
+                        viewBox="0 0 800 160"
+                        class="w-full h-40"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <!-- Grid lines -->
+                        <line
+                            v-for="i in 4"
+                            :key="i"
+                            x1="0"
+                            :y1="i * 40"
+                            x2="800"
+                            :y2="i * 40"
+                            stroke="rgba(255,255,255,0.05)"
+                            stroke-width="1"
+                        />
+
+                        <!-- Area fill -->
+                        <path
+                            :d="chartPath"
+                            fill="url(#chartGradient)"
+                            opacity="0.2"
+                        />
+
+                        <!-- Line -->
+                        <path
+                            :d="chartLine"
+                            fill="none"
+                            stroke="#22d3ee"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+
+                        <!-- Animated dot -->
+                        <circle
+                            :cx="animatedDotX"
+                            :cy="animatedDotY"
+                            r="4"
+                            fill="#22d3ee"
+                            class="animate-pulse"
+                        />
+
+                        <!-- Gradient definition -->
+                        <defs>
+                            <linearGradient
+                                id="chartGradient"
+                                x1="0%"
+                                y1="0%"
+                                x2="0%"
+                                y2="100%"
+                            >
+                                <stop
+                                    offset="0%"
+                                    stop-color="#22d3ee"
+                                    stop-opacity="0.4"
+                                />
+                                <stop
+                                    offset="100%"
+                                    stop-color="#22d3ee"
+                                    stop-opacity="0"
+                                />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Uptime Distribution -->
+                <div class="bg-[#16161E] border border-white/10 rounded-lg p-6">
+                    <div class="mb-6">
+                        <h2 class="text-lg font-semibold">
+                            Uptime Distribution
+                        </h2>
+                        <p class="text-xs text-gray-500 mt-1">
+                            Monitor health breakdown
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div
+                                class="flex items-center justify-between mb-2 text-sm"
+                            >
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-3 h-3 rounded bg-emerald-500"
+                                    ></div>
+                                    <span>Operational</span>
+                                </div>
+                                <span class="font-semibold">{{
+                                    operationalCount
+                                }}</span>
+                            </div>
+                            <div
+                                class="w-full h-2 bg-white/5 rounded-full overflow-hidden"
+                            >
+                                <div
+                                    class="h-full bg-emerald-500 transition-all duration-500"
+                                    :style="{
+                                        width: `${(operationalCount / totalMonitors) * 100}%`,
+                                    }"
+                                ></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div
+                                class="flex items-center justify-between mb-2 text-sm"
+                            >
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-3 h-3 rounded bg-yellow-500"
+                                    ></div>
+                                    <span>Degraded</span>
+                                </div>
+                                <span class="font-semibold">{{
+                                    degradedCount
+                                }}</span>
+                            </div>
+                            <div
+                                class="w-full h-2 bg-white/5 rounded-full overflow-hidden"
+                            >
+                                <div
+                                    class="h-full bg-yellow-500 transition-all duration-500"
+                                    :style="{
+                                        width: `${(degradedCount / totalMonitors) * 100}%`,
+                                    }"
+                                ></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div
+                                class="flex items-center justify-between mb-2 text-sm"
+                            >
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="w-3 h-3 rounded bg-red-500"
+                                    ></div>
+                                    <span>Down</span>
+                                </div>
+                                <span class="font-semibold">{{
+                                    downCount
+                                }}</span>
+                            </div>
+                            <div
+                                class="w-full h-2 bg-white/5 rounded-full overflow-hidden"
+                            >
+                                <div
+                                    class="h-full bg-red-500 transition-all duration-500"
+                                    :style="{
+                                        width: `${(downCount / totalMonitors) * 100}%`,
+                                    }"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Incidents -->
+                <div class="bg-[#16161E] border border-white/10 rounded-lg p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-lg font-semibold">
+                                Recent Incidents
+                            </h2>
+                            <p class="text-xs text-gray-500 mt-1">
+                                Latest downtime events
+                            </p>
+                        </div>
+                        <router-link
+                            to="/incidents"
+                            class="text-xs text-cyan-400 hover:text-cyan-300 transition-colors"
+                        >
+                            View All →
+                        </router-link>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div
+                            v-for="incident in recentIncidents"
+                            :key="incident.id"
+                            class="flex items-start gap-3 p-3 bg-[#0D0D12] rounded-lg"
+                        >
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center"
+                                :class="{
+                                    'bg-red-500/10':
+                                        incident.severity === 'critical',
+                                    'bg-yellow-500/10':
+                                        incident.severity === 'warning',
+                                }"
+                            >
+                                <ExclamationTriangleIcon
+                                    class="w-4 h-4"
+                                    :class="{
+                                        'text-red-400':
+                                            incident.severity === 'critical',
+                                        'text-yellow-400':
+                                            incident.severity === 'warning',
+                                    }"
+                                />
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-medium text-sm mb-0.5">
+                                    {{ incident.monitor }}
+                                </div>
+                                <div class="text-xs text-gray-400 mb-1">
+                                    {{ incident.message }}
+                                </div>
+                                <div
+                                    class="text-xs text-gray-500"
+                                    :style="{
+                                        fontFamily: 'JetBrains Mono, monospace',
+                                    }"
+                                >
+                                    {{ incident.timestamp }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div
+                        v-if="recentIncidents.length === 0"
+                        class="text-center py-8"
+                    >
+                        <div
+                            class="w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center"
+                        >
+                            <CheckCircleIcon class="w-6 h-6 text-emerald-400" />
+                        </div>
+                        <div class="text-sm text-gray-400">
+                            No incidents in the last 7 days
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import {
+    ChartBarIcon,
+    ArrowTrendingUpIcon,
+    BoltIcon,
+    ExclamationTriangleIcon,
+    CheckCircleIcon,
+} from "@heroicons/vue/24/solid";
+import { useMonitors } from "@/composables/useMonitors";
+import StatusIndicator from "@/components/StatusIndicator.vue";
+
+// Use shared monitor data
+const {
+    totalMonitors,
+    operationalCount,
+    downCount,
+    degradedCount,
+    systemStatus,
+    averageUptime,
+    averageResponseTime,
+} = useMonitors();
+
+// Time tracking
+const lastUpdated = ref("Just now");
+
+// Recent incidents data
+const recentIncidents = ref([
+    {
+        id: 1,
+        monitor: "Legacy API",
+        message: "Service unreachable - Connection timeout",
+        severity: "critical",
+        timestamp: "2 hours ago",
+        duration: "Ongoing",
+    },
+    {
+        id: 2,
+        monitor: "Auth Service",
+        message: "High response time detected (>500ms)",
+        severity: "warning",
+        timestamp: "5 hours ago",
+        duration: "45 minutes",
+    },
+    {
+        id: 3,
+        monitor: "CDN Service",
+        message: "SSL certificate expiring in 14 days",
+        severity: "warning",
+        timestamp: "1 day ago",
+        duration: "N/A",
+    },
+]);
+
+const totalIncidents = computed(() => recentIncidents.value.length);
+
+// Chart data generation
+const generateChartData = (points = 50, volatility = 0.2) => {
+    const data = [];
+    let value = 50 + Math.random() * 30;
+
+    for (let i = 0; i < points; i++) {
+        value += (Math.random() - 0.5) * 20 * volatility;
+        value = Math.max(20, Math.min(100, value));
+        data.push(value);
+    }
+
+    return data;
+};
+
+const chartData = ref(generateChartData());
+
+// Chart path calculations
+const chartPath = computed(() => {
+    const width = 800;
+    const height = 160;
+    const points = chartData.value.length;
+
+    let path = `M 0,${height - chartData.value[0] * 1.3} `;
+
+    for (let i = 1; i < points; i++) {
+        const x = (i / (points - 1)) * width;
+        const y = height - chartData.value[i] * 1.3;
+        path += `L ${x},${y} `;
+    }
+
+    path += `L ${width},${height} L 0,${height} Z`;
+    return path;
+});
+
+const chartLine = computed(() => {
+    const width = 800;
+    const height = 160;
+    const points = chartData.value.length;
+
+    let path = `M 0,${height - chartData.value[0] * 1.3} `;
+
+    for (let i = 1; i < points; i++) {
+        const x = (i / (points - 1)) * width;
+        const y = height - chartData.value[i] * 1.3;
+        path += `L ${x},${y} `;
+    }
+
+    return path;
+});
+
+const animatedDotX = computed(() => {
+    const width = 800;
+    const points = chartData.value.length;
+    return ((points - 1) / (points - 1)) * width;
+});
+
+const animatedDotY = computed(() => {
+    const height = 160;
+    return height - chartData.value[chartData.value.length - 1] * 1.3;
+});
+
+// Animate chart data
+let chartInterval;
+onMounted(() => {
+    chartInterval = setInterval(() => {
+        chartData.value.shift();
+        chartData.value.push(50 + Math.random() * 30);
+        lastUpdated.value = "Just now";
+    }, 2000);
+});
+
+onUnmounted(() => {
+    if (chartInterval) clearInterval(chartInterval);
+});
+</script>
