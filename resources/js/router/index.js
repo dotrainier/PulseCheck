@@ -58,28 +58,28 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
-    // scrollBehavior(to, from, savedPosition) {
-    //     if (savedPosition) {
-    //         return savedPosition;
-    //     } else {
-    //         return { top: 0 };
-    //     }
-    // },
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition;
+        } else {
+            return { top: 0 };
+        }
+    },
 });
 
 // Auth guard
-// router.beforeEach((to, from, next) => {
-//     const isAuthenticated = !!localStorage.getItem("auth_token"); // Adjust based on your auth implementation
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = !!localStorage.getItem("auth_token"); // Adjust based on your auth implementation
 
-//     if (to.meta.title) {
-//         document.title = to.meta.title;
-//     }
+    if (to.meta.title) {
+        document.title = to.meta.title;
+    }
 
-//     if (to.meta.requiresAuth && !isAuthenticated) {
-//         next({ name: "landing" });
-//     } else {
-//         next();
-//     }
-// });
+    if (to.meta.requiresAuth && !isAuthenticated) {
+        next({ name: "landing" });
+    } else {
+        next();
+    }
+});
 
 export default router;

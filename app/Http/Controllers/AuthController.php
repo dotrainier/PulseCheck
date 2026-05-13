@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -47,7 +45,13 @@ class AuthController extends Controller
             'message' => 'User signed in successfully',
             'user' => $user,
             'token' => $token,
-            'token_type' => 'Bearer'
         ], 200);
+    }
+
+    public function signout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Signed out successfully']);
     }
 }

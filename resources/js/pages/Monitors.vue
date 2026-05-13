@@ -15,17 +15,17 @@
                             Monitors
                         </h1>
                         <p class="text-sm text-gray-400 mt-1">
-                            {{ monitors.length }} active monitors •
-                            {{ operationalCount }} operational •
+                            {{ totalMonitors }} active monitors &bull;
+                            {{ operationalCount }} operational &bull;
                             {{ downCount }} down
                         </p>
                     </div>
                     <button
                         @click="openAddModal"
-                        class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2"
+                        class="px-4 py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2"
                     >
                         <PlusIcon class="w-4 h-4" />
-                        <span>Add Monitor</span>
+                        <span class="hidden sm:inline">Add Monitor</span>
                     </button>
                 </div>
             </div>
@@ -33,8 +33,23 @@
 
         <!-- Main Content -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Loading -->
+            <div v-if="loading" class="flex items-center justify-center py-16">
+                <div
+                    class="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin"
+                ></div>
+            </div>
+
+            <!-- Error -->
+            <div
+                v-else-if="error"
+                class="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm"
+            >
+                {{ error }}
+            </div>
+
             <!-- Monitors List -->
-            <div class="space-y-3">
+            <div v-else class="space-y-3">
                 <div
                     v-for="monitor in monitors"
                     :key="monitor.id"
@@ -42,16 +57,14 @@
                     @click="viewMonitor(monitor)"
                 >
                     <div class="flex items-start justify-between gap-4">
-                        <!-- Left: Status & Info -->
                         <div class="flex items-start gap-4 flex-1 min-w-0">
-                            <!-- Status Indicator -->
-                            <div class="flex-shrink-0 mt-1">
+                            <div class="shrink-0 mt-1">
                                 <StatusIndicator :status="monitor.status" />
                             </div>
-
-                            <!-- Info -->
                             <div class="flex-1 min-w-0">
-                                <div class="flex items-center gap-2 mb-1">
+                                <div
+                                    class="flex items-center gap-2 mb-1 flex-wrap"
+                                >
                                     <h3 class="text-base font-semibold">
                                         {{ monitor.name }}
                                     </h3>
@@ -69,15 +82,15 @@
                                                 monitor.status === 'down',
                                             'bg-yellow-500/10 text-yellow-400 border border-yellow-500/20':
                                                 monitor.status === 'degraded',
+                                            'bg-gray-500/10 text-gray-400 border border-gray-500/20':
+                                                monitor.status === 'pending',
                                         }"
+                                        >{{ monitor.status }}</span
                                     >
-                                        {{ monitor.status }}
-                                    </span>
-                                    <!-- SSL Warning Badge -->
                                     <span
                                         v-if="
-                                            monitor.trackSsl &&
-                                            monitor.sslExpiring
+                                            monitor.track_ssl &&
+                                            monitor.ssl_expiring
                                         "
                                         class="px-2 py-0.5 text-xs rounded-md bg-orange-500/10 text-orange-400 border border-orange-500/20 flex items-center gap-1"
                                         :style="{
@@ -99,8 +112,6 @@
                                 >
                                     {{ monitor.url }}
                                 </div>
-
-                                <!-- Metrics Grid -->
                                 <div
                                     class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs"
                                     :style="{
@@ -118,7 +129,11 @@
                                             Response Time
                                         </div>
                                         <div class="font-semibold text-white">
-                                            {{ monitor.responseTime }}ms
+                                            {{
+                                                monitor.avg_response_time
+                                                    ? `${monitor.avg_response_time}ms`
+                                                    : "—"
+                                            }}
                                         </div>
                                     </div>
                                     <div>
@@ -126,7 +141,7 @@
                                             Interval
                                         </div>
                                         <div class="font-semibold text-white">
-                                            {{ monitor.checkInterval }}
+                                            {{ monitor.check_interval }}
                                         </div>
                                     </div>
                                     <div>
@@ -134,24 +149,38 @@
                                             Last Check
                                         </div>
                                         <div class="font-semibold text-white">
-                                            {{ monitor.lastCheck }}
+                                            {{
+                                                timeAgo(monitor.last_checked_at)
+                                            }}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Right: Actions -->
-                        <div class="flex items-center gap-2 flex-shrink-0">
+                        <div class="flex items-center gap-2 shrink-0">
                             <button
-                                @click.stop="editMonitor(monitor)"
+                                @click.stop="runCheckNow(monitor)"
+                                :disabled="checking === monitor.id"
+                                class="p-2 hover:bg-cyan-500/10 rounded-lg transition-colors"
+                                title="Run check now"
+                            >
+                                <ArrowPathIcon
+                                    class="w-5 h-5 text-gray-400"
+                                    :class="{
+                                        'animate-spin': checking === monitor.id,
+                                    }"
+                                />
+                            </button>
+                            <button
+                                @click.stop="openEditModal(monitor)"
                                 class="p-2 hover:bg-white/5 rounded-lg transition-colors"
                                 title="Edit"
                             >
                                 <PencilIcon class="w-5 h-5 text-gray-400" />
                             </button>
                             <button
-                                @click.stop="deleteMonitor(monitor)"
+                                @click.stop="confirmDelete(monitor)"
                                 class="p-2 hover:bg-red-500/10 rounded-lg transition-colors"
                                 title="Delete"
                             >
@@ -164,11 +193,11 @@
 
             <!-- Empty State -->
             <div
-                v-if="monitors.length === 0"
+                v-if="!loading && !error && monitors.length === 0"
                 class="text-center py-16 bg-[#16161E] border border-white/10 rounded-lg"
             >
                 <div
-                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-cyan-500/20 to-teal-500/20 flex items-center justify-center"
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-linear-to-br from-cyan-500/20 to-teal-500/20 flex items-center justify-center"
                 >
                     <ChartBarIcon class="w-8 h-8 text-cyan-400" />
                 </div>
@@ -178,14 +207,14 @@
                 </p>
                 <button
                     @click="openAddModal"
-                    class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25"
+                    class="px-4 py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25"
                 >
                     Add Monitor
                 </button>
             </div>
         </div>
 
-        <!-- Add/Edit Monitor Modal -->
+        <!-- Add/Edit Modal -->
         <Teleport to="body">
             <div
                 v-if="showModal"
@@ -195,26 +224,30 @@
                 <div
                     class="w-full max-w-2xl bg-[#16161E] border border-white/10 rounded-xl shadow-2xl"
                 >
-                    <!-- Modal Header -->
-                    <div class="px-6 py-4 border-b border-white/10">
-                        <div class="flex items-center justify-between">
-                            <h2 class="text-xl font-bold">
-                                {{ isEditing ? "Edit Monitor" : "Add Monitor" }}
-                            </h2>
-                            <button
-                                @click="closeModal"
-                                class="p-1 hover:bg-white/5 rounded-lg transition-colors"
-                            >
-                                <XMarkIcon class="w-5 h-5 text-gray-400" />
-                            </button>
-                        </div>
+                    <div
+                        class="px-6 py-4 border-b border-white/10 flex items-center justify-between"
+                    >
+                        <h2 class="text-xl font-bold">
+                            {{ isEditing ? "Edit Monitor" : "Add Monitor" }}
+                        </h2>
+                        <button
+                            @click="closeModal"
+                            class="p-1 hover:bg-white/5 rounded-lg transition-colors"
+                        >
+                            <XMarkIcon class="w-5 h-5 text-gray-400" />
+                        </button>
                     </div>
 
-                    <!-- Modal Body -->
                     <div
                         class="px-6 py-6 space-y-5 max-h-[70vh] overflow-y-auto"
                     >
-                        <!-- Name -->
+                        <div
+                            v-if="formError"
+                            class="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-sm text-red-400"
+                        >
+                            {{ formError }}
+                        </div>
+
                         <div>
                             <label
                                 class="block text-sm font-medium mb-2 text-gray-300"
@@ -231,7 +264,6 @@
                             />
                         </div>
 
-                        <!-- URL -->
                         <div>
                             <label
                                 class="block text-sm font-medium mb-2 text-gray-300"
@@ -248,14 +280,13 @@
                             />
                         </div>
 
-                        <!-- Check Interval -->
                         <div>
                             <label
                                 class="block text-sm font-medium mb-2 text-gray-300"
                                 >Check Interval</label
                             >
                             <select
-                                v-model="formData.checkInterval"
+                                v-model="formData.check_interval"
                                 class="w-full px-4 py-2 bg-[#0D0D12] border border-white/10 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors"
                                 :style="{
                                     fontFamily: 'JetBrains Mono, monospace',
@@ -264,21 +295,23 @@
                                 <option value="30s">30 seconds</option>
                                 <option value="1m">1 minute</option>
                                 <option value="5m">5 minutes</option>
+                                <option value="15m">15 minutes</option>
+                                <option value="30m">30 minutes</option>
                                 <option value="1h">1 hour</option>
                                 <option value="6h">6 hours</option>
                                 <option value="24h">24 hours</option>
                             </select>
                         </div>
 
-                        <!-- Expected Status Code -->
                         <div>
                             <label
                                 class="block text-sm font-medium mb-2 text-gray-300"
-                                >Expected Status Code
+                            >
+                                Expected Status Code
                                 <span class="text-gray-500">(optional)</span>
                             </label>
                             <input
-                                v-model="formData.expectedStatusCode"
+                                v-model="formData.expected_status_code"
                                 type="text"
                                 placeholder="200"
                                 class="w-full px-4 py-2 bg-[#0D0D12] border border-white/10 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors"
@@ -288,11 +321,11 @@
                             />
                         </div>
 
-                        <!-- Timeout -->
                         <div>
                             <label
                                 class="block text-sm font-medium mb-2 text-gray-300"
-                                >Timeout (seconds)
+                            >
+                                Timeout (seconds)
                                 <span class="text-gray-500">(optional)</span>
                             </label>
                             <input
@@ -306,32 +339,23 @@
                             />
                         </div>
 
-                        <!-- Track SSL -->
-                        <div>
-                            <label
-                                class="flex items-center gap-3 cursor-pointer"
-                            >
-                                <input
-                                    v-model="formData.trackSsl"
-                                    type="checkbox"
-                                    class="w-4 h-4 rounded border-white/10 bg-[#0D0D12] text-cyan-500 focus:ring-cyan-500 focus:ring-offset-0"
-                                />
-                                <div>
-                                    <div
-                                        class="text-sm font-medium text-gray-300"
-                                    >
-                                        Track SSL Certificate
-                                    </div>
-                                    <div class="text-xs text-gray-500">
-                                        Monitor SSL certificate expiration
-                                        (auto-enabled for HTTPS URLs)
-                                    </div>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input
+                                v-model="formData.track_ssl"
+                                type="checkbox"
+                                class="w-4 h-4 rounded border-white/10 bg-[#0D0D12] text-cyan-500 focus:ring-cyan-500 focus:ring-offset-0"
+                            />
+                            <div>
+                                <div class="text-sm font-medium text-gray-300">
+                                    Track SSL Certificate
                                 </div>
-                            </label>
-                        </div>
+                                <div class="text-xs text-gray-500">
+                                    Monitor SSL certificate expiration
+                                </div>
+                            </div>
+                        </label>
                     </div>
 
-                    <!-- Modal Footer -->
                     <div
                         class="px-6 py-4 border-t border-white/10 flex items-center justify-end gap-3"
                     >
@@ -343,8 +367,13 @@
                         </button>
                         <button
                             @click="saveMonitor"
-                            class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25"
+                            :disabled="saving"
+                            class="px-4 py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25 disabled:opacity-50 flex items-center gap-2"
                         >
+                            <div
+                                v-if="saving"
+                                class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
+                            ></div>
                             {{ isEditing ? "Save Changes" : "Add Monitor" }}
                         </button>
                     </div>
@@ -355,7 +384,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import {
     PlusIcon,
@@ -364,78 +393,137 @@ import {
     XMarkIcon,
     ChartBarIcon,
     ExclamationTriangleIcon,
+    ArrowPathIcon,
 } from "@heroicons/vue/24/solid";
 import { useMonitors } from "@/composables/useMonitors";
 import StatusIndicator from "@/components/StatusIndicator.vue";
 
 const router = useRouter();
+const {
+    monitors,
+    loading,
+    error,
+    totalMonitors,
+    operationalCount,
+    downCount,
+    fetchMonitors,
+    createMonitor,
+    updateMonitor,
+    deleteMonitor,
+    runCheck,
+} = useMonitors();
 
-// Use shared monitor data
-const { monitors, operationalCount, downCount } = useMonitors();
+const checking = ref(null);
 
-// Modal state
+const timeAgo = (dateStr) => {
+    if (!dateStr) return "Never";
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const m = Math.floor(diff / 60000);
+    if (m < 1) return "Just now";
+    if (m === 1) return "1 min ago";
+    if (m < 60) return `${m} min ago`;
+    const h = Math.floor(m / 60);
+    if (h < 24) return `${h}h ago`;
+    return `${Math.floor(h / 24)}d ago`;
+};
+
 const showModal = ref(false);
 const isEditing = ref(false);
 const editingId = ref(null);
+const saving = ref(false);
+const formError = ref("");
 
-// Form data
-const formData = ref({
+const defaultForm = () => ({
     name: "",
     url: "",
-    checkInterval: "1m",
-    expectedStatusCode: "",
+    check_interval: "1m",
+    expected_status_code: "",
     timeout: "",
-    trackSsl: false,
+    track_ssl: false,
 });
 
-// Modal functions
+const formData = ref(defaultForm());
+
 const openAddModal = () => {
     isEditing.value = false;
-    formData.value = {
-        name: "",
-        url: "",
-        checkInterval: "1m",
-        expectedStatusCode: "",
-        timeout: "",
-        trackSsl: false,
-    };
+    editingId.value = null;
+    formData.value = defaultForm();
+    formError.value = "";
     showModal.value = true;
 };
 
-const editMonitor = (monitor) => {
+const openEditModal = (monitor) => {
     isEditing.value = true;
     editingId.value = monitor.id;
     formData.value = {
         name: monitor.name,
         url: monitor.url,
-        checkInterval: monitor.checkInterval,
-        expectedStatusCode: monitor.expectedStatusCode,
-        timeout: monitor.timeout,
-        trackSsl: monitor.trackSsl,
+        check_interval: monitor.check_interval,
+        expected_status_code: monitor.expected_status_code ?? "",
+        timeout: monitor.timeout ?? "",
+        track_ssl: monitor.track_ssl,
     };
+    formError.value = "";
     showModal.value = true;
 };
 
 const closeModal = () => {
     showModal.value = false;
-    isEditing.value = false;
-    editingId.value = null;
 };
 
-const saveMonitor = () => {
-    // In real app, this would call API
-    console.log("Saving monitor:", formData.value);
-    closeModal();
-};
-
-const deleteMonitor = (monitor) => {
-    if (confirm(`Are you sure you want to delete "${monitor.name}"?`)) {
-        console.log("Deleting monitor:", monitor.id);
-        // In real app, this would call API
+const saveMonitor = async () => {
+    if (!formData.value.name || !formData.value.url) {
+        formError.value = "Name and URL are required.";
+        return;
+    }
+    saving.value = true;
+    formError.value = "";
+    try {
+        const payload = {
+            ...formData.value,
+            expected_status_code: formData.value.expected_status_code || null,
+            timeout: formData.value.timeout || null,
+        };
+        if (isEditing.value) {
+            await updateMonitor(editingId.value, payload);
+        } else {
+            await createMonitor(payload);
+        }
+        closeModal();
+    } catch (e) {
+        formError.value =
+            e.response?.data?.message || "Failed to save monitor.";
+    } finally {
+        saving.value = false;
     }
 };
 
-const viewMonitor = (monitor) => {
-    router.push(`/monitors/${monitor.id}`);
+const confirmDelete = async (monitor) => {
+    if (
+        confirm(
+            `Delete "${monitor.name}"? This will also remove all check history and incidents.`,
+        )
+    ) {
+        try {
+            await deleteMonitor(monitor.id);
+        } catch {
+            alert("Failed to delete monitor.");
+        }
+    }
 };
+
+const runCheckNow = async (monitor) => {
+    checking.value = monitor.id;
+    try {
+        await runCheck(monitor.id);
+    } catch {
+        // silently fail
+    } finally {
+        checking.value = null;
+    }
+};
+
+const viewMonitor = (monitor) => router.push(`/monitors/${monitor.id}`);
+
+onMounted(fetchMonitors);
 </script>

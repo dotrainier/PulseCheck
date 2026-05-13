@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
-import router from "../../router";
+import api from "@/utils/axios";
+import router from "@/router";
 import {
     XMarkIcon,
     BoltIcon,
@@ -10,8 +10,10 @@ import {
     EyeSlashIcon,
 } from "@heroicons/vue/24/solid";
 import { useAuthModalStore } from "@/stores/authModal";
+import { useAuthStore } from "@/stores/auth";
 
 const authModal = useAuthModalStore();
+const authStore = useAuthStore();
 const email = ref("");
 const password = ref("");
 const showPassword = ref(false);
@@ -26,14 +28,12 @@ const handleSignIn = async () => {
 
     loading.value = true;
     try {
-        const result = await axios.post("/api/signin", {
+        const result = await api.post("/api/signin", {
             email: email.value,
             password: password.value,
         });
 
-        console.log(result);
-        // Save token to localStorage
-        localStorage.setItem("auth_token", result.data.token);
+        authStore.setSession(result.data.token, result.data.user);
         authModal.close();
         router.push("/dashboard");
     } catch (err) {
@@ -69,7 +69,9 @@ const handleSignIn = async () => {
                         class="px-6 py-6 border-b border-white/10 flex items-center justify-between"
                     >
                         <div>
-                            <h2 class="text-2xl font-bold">Sign In</h2>
+                            <h2 class="text-2xl font-bold text-white">
+                                Sign In
+                            </h2>
                             <p class="text-sm text-gray-500 mt-1">
                                 Access your PulseCheck dashboard
                             </p>
