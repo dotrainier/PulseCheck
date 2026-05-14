@@ -4,6 +4,7 @@ services:
         env_file: .env.docker
         volumes:
             - app_public:/app/public
+            - app_storage:/app/storage
         depends_on:
             - postgres
 
@@ -20,7 +21,20 @@ services:
     queue:
         build: .
         env_file: .env.docker
+        entrypoint: []
         command: php artisan queue:work --tries=3 --timeout=60
+        volumes:
+            - app_storage:/app/storage
+        depends_on:
+            - postgres
+
+    scheduler:
+        build: .
+        env_file: .env.docker
+        entrypoint: []
+        command: php artisan schedule:work
+        volumes:
+            - app_storage:/app/storage
         depends_on:
             - postgres
 
@@ -29,7 +43,7 @@ services:
         environment:
             POSTGRES_DB: pulsecheck
             POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: 123456
+            POSTGRES_PASSWORD: ygoSFZIzErHs8Jkci7da23Sk6IO9MGy
         ports:
             - "5432:5432"
         volumes:
@@ -37,4 +51,5 @@ services:
 
 volumes:
     app_public:
+    app_storage:
     postgres_data:

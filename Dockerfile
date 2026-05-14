@@ -21,14 +21,19 @@ RUN docker-php-ext-install pdo pdo_pgsql
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # PHP dependencies
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader
 
-# Frontend dependencies
-RUN npm install
+# Frontend dependencies & build Vue
+RUN npm install && npm run build
 
-# Build Vue (IMPORTANT for production-like run)
-RUN npm run build
+# Storage permissions
+RUN chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
+
+# Entrypoint
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 9000
 
-CMD ["php-fpm"]
+ENTRYPOINT ["/entrypoint.sh"]
