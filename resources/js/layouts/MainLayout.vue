@@ -39,7 +39,7 @@
 
         <!-- Sidebar -->
         <aside
-            class="fixed inset-y-0 left-0 w-64 bg-[#16161E] border-r border-white/10 z-50 flex flex-col transition-transform duration-300 ease-in-out"
+            class="fixed inset-y-0 left-0 w-64 xl:w-72 bg-[#16161E] border-r border-white/10 z-50 flex flex-col transition-transform duration-300 ease-in-out"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
         >
             <!-- Logo -->
@@ -120,7 +120,7 @@
         </aside>
 
         <!-- Main content -->
-        <main class="lg:pl-64 pt-14 lg:pt-0 min-w-0">
+        <main class="lg:pl-64 xl:pl-72 pt-14 lg:pt-0 min-w-0">
             <router-view />
         </main>
     </div>

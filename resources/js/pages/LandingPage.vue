@@ -5,13 +5,13 @@
         class="min-h-screen bg-[#0D0D12] text-white overflow-x-hidden font-sans"
     >
         <!-- Navigation -->
-        <nav class="fixed top-0 w-full z-50 bg-[#0D0D12]/90 backdrop-blur-md">
+        <nav class="fixed top-0 w-full z-50 bg-[#0D0D12]/90 backdrop-blur-md border-b border-white/5">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-14">
+                <div class="flex items-center justify-between h-14 sm:h-16">
                     <div class="flex items-center gap-2.5">
                         <div class="relative">
                             <div
-                                class="w-7 h-7 rounded-md bg-gradient-to-br from-cyan-500 via-teal-500 to-emerald-500 flex items-center justify-center"
+                                class="w-7 h-7 rounded-md bg-linear-to-br from-cyan-500 via-teal-500 to-emerald-500 flex items-center justify-center"
                             >
                                 <div
                                     class="w-2 h-2 rounded-full bg-white animate-ping absolute"
@@ -22,21 +22,21 @@
                             </div>
                         </div>
                         <span
-                            class="text-lg font-bold tracking-wide"
+                            class="text-base sm:text-lg font-bold tracking-wide"
                             :style="{ fontFamily: 'Space Mono, monospace' }"
                             >PulseCheck</span
                         >
                     </div>
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-2 sm:gap-3">
                         <button
                             @click="authModal.open('signin')"
-                            class="text-sm text-gray-500 hover:text-white transition-colors"
+                            class="text-sm text-gray-500 hover:text-white transition-colors px-2 py-2"
                         >
                             Sign In
                         </button>
                         <button
                             @click="handleDemo"
-                            class="px-3.5 py-1.5 bg-gradient-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-md hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25"
+                            class="px-3.5 py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-md hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25"
                         >
                             Demo
                         </button>
@@ -47,26 +47,26 @@
 
         <!-- Hero Section -->
         <section
-            class="relative pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
+            class="relative pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
         >
             <!-- Background Effects -->
-            <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div
-                    class="absolute top-20 left-0 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-[140px]"
+                    class="absolute top-20 left-0 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-cyan-500/5 rounded-full blur-[100px] sm:blur-[140px]"
                 ></div>
                 <div
-                    class="absolute top-40 right-0 w-[500px] h-[500px] bg-teal-500/5 rounded-full blur-[120px]"
+                    class="absolute top-40 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-teal-500/5 rounded-full blur-[80px] sm:blur-[120px]"
                 ></div>
                 <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px]"
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-emerald-500/5 rounded-full blur-[80px] sm:blur-[100px]"
                 ></div>
             </div>
 
             <div class="max-w-6xl mx-auto relative">
-                <div class="text-center space-y-6 mb-16">
+                <div class="text-center space-y-5 sm:space-y-6 mb-12 sm:mb-16">
                     <!-- Badge -->
                     <div
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500/10 via-teal-500/10 to-emerald-500/10 border border-cyan-500/20 text-sm"
+                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-linear-to-r from-cyan-500/10 via-teal-500/10 to-emerald-500/10 border border-cyan-500/20 text-xs sm:text-sm"
                     >
                         <div class="relative flex items-center justify-center">
                             <div
@@ -85,7 +85,7 @@
 
                     <!-- Headline -->
                     <h1
-                        class="text-5xl sm:text-6xl lg:text-7xl font-black leading-[1.1] tracking-tight"
+                        class="text-[2.25rem] leading-[1.15] sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight"
                         :style="{
                             fontFamily:
                                 'Cabinet Grotesk, system-ui, sans-serif',
@@ -93,16 +93,16 @@
                     >
                         Monitor your
                         <span
-                            class="block mt-2 bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent animate-gradient"
+                            class="block mt-1 sm:mt-2 bg-linear-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent animate-gradient"
                         >
                             websites and APIs
                         </span>
-                        <span class="block mt-2">in real time</span>
+                        <span class="block mt-1 sm:mt-2">in real time</span>
                     </h1>
 
                     <!-- Subtext -->
                     <p
-                        class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
+                        class="text-base sm:text-lg text-gray-400 max-w-xl mx-auto leading-relaxed"
                     >
                         A dead-simple uptime monitor for your side projects.
                         Deploy once, forget about it. Get pinged when things
@@ -111,11 +111,11 @@
 
                     <!-- CTA Buttons -->
                     <div
-                        class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4"
+                        class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2 sm:pt-4"
                     >
                         <button
                             @click="handleDemo"
-                            class="group w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 rounded-lg font-semibold text-white hover:shadow-xl hover:shadow-teal-500/30 transition-all flex items-center justify-center gap-2"
+                            class="group w-full sm:w-auto px-6 py-3.5 sm:py-3 bg-linear-to-r from-cyan-600 via-teal-600 to-emerald-600 rounded-lg font-semibold text-white hover:shadow-xl hover:shadow-teal-500/30 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                         >
                             <span>Try the Demo</span>
                             <ArrowRightIcon
@@ -124,7 +124,7 @@
                         </button>
                         <button
                             @click="authModal.open('signin')"
-                            class="w-full sm:w-auto px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg font-semibold hover:bg-white/10 transition-all"
+                            class="w-full sm:w-auto px-6 py-3.5 sm:py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg font-semibold hover:bg-white/10 transition-all text-sm sm:text-base"
                         >
                             Sign In
                         </button>
@@ -132,7 +132,7 @@
 
                     <!-- Quick Stats -->
                     <div
-                        class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 pt-8 text-sm"
+                        class="flex flex-wrap items-center justify-center gap-4 sm:gap-10 pt-4 sm:pt-8 text-xs sm:text-sm"
                         :style="{ fontFamily: 'JetBrains Mono, monospace' }"
                     >
                         <div class="flex items-center gap-2">
@@ -141,13 +141,25 @@
                             ></div>
                             <span class="text-gray-500">Checks every 30s</span>
                         </div>
+                        <div class="flex items-center gap-2">
+                            <div
+                                class="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                            ></div>
+                            <span class="text-gray-500">Self-hosted</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div
+                                class="w-1.5 h-1.5 rounded-full bg-teal-400"
+                            ></div>
+                            <span class="text-gray-500">Open source</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Hero Visual - Terminal-style Dashboard -->
-                <div class="relative max-w-4xl mx-auto mt-12">
+                <div class="relative max-w-4xl mx-auto mt-8 sm:mt-12">
                     <div
-                        class="absolute -inset-6 bg-gradient-to-r from-cyan-500/10 via-teal-500/10 to-emerald-500/10 rounded-2xl blur-2xl"
+                        class="absolute -inset-4 sm:-inset-6 bg-linear-to-r from-cyan-500/10 via-teal-500/10 to-emerald-500/10 rounded-2xl blur-2xl"
                     ></div>
 
                     <div
@@ -156,21 +168,21 @@
                     >
                         <!-- Terminal Header -->
                         <div
-                            class="px-4 py-3 bg-[#1A1A24] border-b border-white/10 flex items-center justify-between"
+                            class="px-3 sm:px-4 py-2.5 sm:py-3 bg-[#1A1A24] border-b border-white/10 flex items-center justify-between"
                         >
                             <div class="flex items-center gap-2">
                                 <div class="flex gap-1.5">
                                     <div
-                                        class="w-3 h-3 rounded-full bg-red-400/80"
+                                        class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-400/80"
                                     ></div>
                                     <div
-                                        class="w-3 h-3 rounded-full bg-yellow-400/80"
+                                        class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-400/80"
                                     ></div>
                                     <div
-                                        class="w-3 h-3 rounded-full bg-green-400/80"
+                                        class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400/80"
                                     ></div>
                                 </div>
-                                <span class="text-xs text-gray-500 ml-2"
+                                <span class="text-xs text-gray-500 ml-1 sm:ml-2"
                                     >pulsecheck dashboard</span
                                 >
                             </div>
@@ -187,13 +199,13 @@
                         </div>
 
                         <!-- Dashboard Content -->
-                        <div class="p-5 space-y-4 text-sm">
+                        <div class="p-3 sm:p-5 space-y-3 sm:space-y-4 text-xs sm:text-sm">
                             <!-- Status Banner -->
                             <div
-                                class="flex items-center gap-3 p-3 bg-cyan-500/5 border border-cyan-500/20 rounded-lg"
+                                class="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-cyan-500/5 border border-cyan-500/20 rounded-lg"
                             >
                                 <div
-                                    class="relative flex items-center justify-center"
+                                    class="relative flex items-center justify-center shrink-0"
                                 >
                                     <div
                                         class="w-2 h-2 rounded-full bg-cyan-400 animate-ping absolute"
@@ -202,7 +214,7 @@
                                         class="w-2 h-2 rounded-full bg-cyan-400"
                                     ></div>
                                 </div>
-                                <div class="flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div class="font-semibold text-cyan-300">
                                         All systems operational
                                     </div>
@@ -210,19 +222,19 @@
                                         Last check: {{ lastChecked }}
                                     </div>
                                 </div>
-                                <div class="text-xs text-gray-500">
-                                    5 services monitored
+                                <div class="text-xs text-gray-500 shrink-0 hidden sm:block">
+                                    5 services
                                 </div>
                             </div>
 
                             <!-- Mini Chart -->
                             <div
-                                class="bg-[#1A1A24] rounded-lg p-4 border border-white/5"
+                                class="bg-[#1A1A24] rounded-lg p-3 sm:p-4 border border-white/5"
                             >
-                                <div class="text-xs text-gray-500 mb-3">
+                                <div class="text-xs text-gray-500 mb-2 sm:mb-3">
                                     Response time (24h)
                                 </div>
-                                <div class="h-24 relative">
+                                <div class="h-16 sm:h-24 relative">
                                     <svg
                                         class="w-full h-full"
                                         viewBox="0 0 400 80"
@@ -265,15 +277,15 @@
                             </div>
 
                             <!-- Services List -->
-                            <div class="space-y-2">
+                            <div class="space-y-1.5 sm:space-y-2">
                                 <div
                                     v-for="service in services"
                                     :key="service.name"
-                                    class="flex items-center justify-between p-3 bg-[#1A1A24] rounded-lg border border-white/5 hover:border-cyan-500/30 transition-colors group"
+                                    class="flex items-center justify-between p-2 sm:p-3 bg-[#1A1A24] rounded-lg border border-white/5 hover:border-cyan-500/30 transition-colors group"
                                 >
-                                    <div class="flex items-center gap-3">
+                                    <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
                                         <div
-                                            class="relative flex items-center justify-center"
+                                            class="relative flex items-center justify-center shrink-0"
                                         >
                                             <div
                                                 :class="[
@@ -285,19 +297,19 @@
                                                 ]"
                                             ></div>
                                         </div>
-                                        <div>
-                                            <div class="font-medium text-white">
+                                        <div class="min-w-0">
+                                            <div class="font-medium text-white truncate">
                                                 {{ service.name }}
                                             </div>
-                                            <div class="text-xs text-gray-500">
+                                            <div class="text-xs text-gray-500 truncate hidden sm:block">
                                                 {{ service.url }}
                                             </div>
                                         </div>
                                     </div>
                                     <div
-                                        class="flex items-center gap-4 text-right"
+                                        class="flex items-center gap-3 sm:gap-4 text-right shrink-0 ml-2"
                                     >
-                                        <div>
+                                        <div class="hidden xs:block sm:block">
                                             <div
                                                 class="text-cyan-300 font-semibold"
                                             >
@@ -314,7 +326,7 @@
                                                 {{ service.responseTime }}ms
                                             </div>
                                             <div class="text-xs text-gray-500">
-                                                response
+                                                resp
                                             </div>
                                         </div>
                                     </div>
@@ -327,11 +339,11 @@
         </section>
 
         <!-- Live Dashboard Section -->
-        <section class="py-16 px-4 sm:px-6 lg:px-8 relative">
+        <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12 space-y-3">
+                <div class="text-center mb-10 sm:mb-12 space-y-3">
                     <h2
-                        class="text-4xl sm:text-5xl font-black"
+                        class="text-3xl sm:text-4xl lg:text-5xl font-black"
                         :style="{
                             fontFamily:
                                 'Cabinet Grotesk, system-ui, sans-serif',
@@ -339,12 +351,12 @@
                     >
                         One dashboard.
                         <span
-                            class="bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
+                            class="bg-linear-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
                         >
                             All your services.
                         </span>
                     </h2>
-                    <p class="text-lg text-gray-400 max-w-xl mx-auto">
+                    <p class="text-base sm:text-lg text-gray-400 max-w-xl mx-auto">
                         See everything at a glance. No clutter, no complexity.
                     </p>
                 </div>
@@ -352,7 +364,7 @@
                 <!-- Simplified Dashboard -->
                 <div class="relative">
                     <div
-                        class="absolute -inset-4 bg-gradient-to-r from-cyan-500/5 via-teal-500/5 to-emerald-500/5 rounded-3xl blur-3xl"
+                        class="absolute -inset-4 bg-linear-to-r from-cyan-500/5 via-teal-500/5 to-emerald-500/5 rounded-3xl blur-3xl"
                     ></div>
 
                     <div
@@ -360,21 +372,21 @@
                         :style="{ fontFamily: 'JetBrains Mono, monospace' }"
                     >
                         <!-- Header -->
-                        <div class="p-5 border-b border-white/10">
-                            <div class="flex items-center justify-between mb-4">
+                        <div class="p-4 sm:p-5 border-b border-white/10">
+                            <div class="flex items-center justify-between mb-3 sm:mb-4">
                                 <div>
-                                    <h3 class="text-xl font-bold mb-1">
+                                    <h3 class="text-lg sm:text-xl font-bold mb-0.5 sm:mb-1">
                                         Status Board
                                     </h3>
-                                    <p class="text-sm text-gray-500">
+                                    <p class="text-xs sm:text-sm text-gray-500">
                                         Monitoring
                                         {{ detailedServices.length }} endpoints
                                     </p>
                                 </div>
                                 <div
-                                    class="px-3 py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-md"
+                                    class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-md"
                                 >
-                                    <div class="flex items-center gap-2">
+                                    <div class="flex items-center gap-1.5 sm:gap-2">
                                         <div
                                             class="relative flex items-center justify-center"
                                         >
@@ -385,7 +397,7 @@
                                                 class="w-1.5 h-1.5 rounded-full bg-cyan-400"
                                             ></div>
                                         </div>
-                                        <span class="text-sm text-cyan-300"
+                                        <span class="text-xs sm:text-sm text-cyan-300"
                                             >All up</span
                                         >
                                     </div>
@@ -394,12 +406,12 @@
                         </div>
 
                         <!-- Main Chart -->
-                        <div class="p-5 border-b border-white/10">
+                        <div class="p-4 sm:p-5 border-b border-white/10">
                             <div class="flex items-center justify-between mb-3">
-                                <h4 class="text-sm font-semibold text-gray-400">
+                                <h4 class="text-xs sm:text-sm font-semibold text-gray-400">
                                     Response Times
                                 </h4>
-                                <div class="flex gap-1.5 text-xs">
+                                <div class="flex gap-1 sm:gap-1.5 text-xs">
                                     <button
                                         class="px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded"
                                     >
@@ -419,7 +431,7 @@
                             </div>
 
                             <div
-                                class="h-48 bg-[#1A1A24] rounded-lg p-4 relative border border-white/5"
+                                class="h-36 sm:h-48 bg-[#1A1A24] rounded-lg p-3 sm:p-4 relative border border-white/5"
                             >
                                 <svg
                                     class="w-full h-full"
@@ -491,26 +503,26 @@
 
                                 <!-- Labels -->
                                 <div
-                                    class="absolute left-2 top-2 bottom-2 flex flex-col justify-between text-xs text-gray-600"
+                                    class="absolute left-1.5 sm:left-2 top-2 bottom-2 flex flex-col justify-between text-xs text-gray-600"
                                 >
                                     <span>150ms</span>
-                                    <span>100ms</span>
-                                    <span>50ms</span>
+                                    <span class="hidden sm:block">100ms</span>
+                                    <span class="hidden sm:block">50ms</span>
                                     <span>0ms</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Services List -->
-                        <div class="p-5 space-y-2">
+                        <div class="p-4 sm:p-5 space-y-1.5 sm:space-y-2">
                             <div
                                 v-for="service in detailedServices"
                                 :key="service.name"
-                                class="flex items-center justify-between p-3 bg-[#1A1A24] rounded-lg border border-white/5 hover:border-cyan-500/30 transition-colors cursor-pointer group"
+                                class="flex items-center justify-between p-2.5 sm:p-3 bg-[#1A1A24] rounded-lg border border-white/5 hover:border-cyan-500/30 transition-colors cursor-pointer group"
                             >
-                                <div class="flex items-center gap-3 flex-1">
+                                <div class="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                                     <div
-                                        class="relative flex items-center justify-center"
+                                        class="relative flex items-center justify-center shrink-0"
                                     >
                                         <div
                                             :class="[
@@ -533,30 +545,30 @@
                                     </div>
                                     <div class="flex-1 min-w-0">
                                         <div
-                                            class="flex items-center gap-2 mb-0.5"
+                                            class="flex items-center gap-1.5 sm:gap-2 mb-0.5"
                                         >
                                             <div
-                                                class="font-medium text-white truncate"
+                                                class="font-medium text-white text-xs sm:text-sm truncate"
                                             >
                                                 {{ service.name }}
                                             </div>
                                             <div
-                                                class="px-1.5 py-0.5 text-xs bg-white/5 rounded text-gray-500"
+                                                class="px-1.5 py-0.5 text-xs bg-white/5 rounded text-gray-500 shrink-0 hidden sm:block"
                                             >
                                                 {{ service.method }}
                                             </div>
                                         </div>
                                         <div
-                                            class="text-xs text-gray-500 truncate"
+                                            class="text-xs text-gray-500 truncate hidden sm:block"
                                         >
                                             {{ service.url }}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-6">
-                                    <div class="text-right">
+                                <div class="flex items-center gap-3 sm:gap-6 shrink-0 ml-2">
+                                    <div class="text-right hidden sm:block">
                                         <div
-                                            class="text-sm font-semibold text-cyan-300"
+                                            class="text-xs sm:text-sm font-semibold text-cyan-300"
                                         >
                                             {{ service.uptime }}%
                                         </div>
@@ -566,7 +578,7 @@
                                     </div>
                                     <div class="text-right">
                                         <div
-                                            class="text-sm font-semibold text-white"
+                                            class="text-xs sm:text-sm font-semibold text-white"
                                         >
                                             {{ service.responseTime }}ms
                                         </div>
@@ -575,7 +587,7 @@
                                         </div>
                                     </div>
                                     <ChevronRightIcon
-                                        class="w-4 h-4 text-gray-600 group-hover:text-gray-400 transition-colors"
+                                        class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 group-hover:text-gray-400 transition-colors hidden sm:block"
                                     />
                                 </div>
                             </div>
@@ -586,11 +598,11 @@
         </section>
 
         <!-- Features Section -->
-        <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-12 space-y-3">
+                <div class="text-center mb-10 sm:mb-12 space-y-3">
                     <h2
-                        class="text-4xl sm:text-5xl font-black"
+                        class="text-3xl sm:text-4xl lg:text-5xl font-black"
                         :style="{
                             fontFamily:
                                 'Cabinet Grotesk, system-ui, sans-serif',
@@ -598,27 +610,27 @@
                     >
                         Simple monitoring.
                         <span
-                            class="bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
+                            class="bg-linear-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
                         >
                             Zero hassle.
                         </span>
                     </h2>
-                    <p class="text-lg text-gray-400 max-w-xl mx-auto">
+                    <p class="text-base sm:text-lg text-gray-400 max-w-xl mx-auto">
                         Built for developers who want things to just work.
                     </p>
                 </div>
 
-                <div class="grid sm:grid-cols-2 gap-4">
+                <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
                     <!-- Feature 1 -->
                     <div
-                        class="group p-6 bg-gradient-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all"
+                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all"
                     >
                         <div
-                            class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/20 flex items-center justify-center mb-4"
+                            class="w-10 h-10 rounded-lg bg-linear-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/20 flex items-center justify-center mb-4"
                         >
                             <ChartBarIcon class="w-5 h-5 text-cyan-400" />
                         </div>
-                        <h3 class="text-xl font-bold mb-2">
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">
                             Continuous Health Checks
                         </h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
@@ -629,14 +641,14 @@
 
                     <!-- Feature 2 -->
                     <div
-                        class="group p-6 bg-gradient-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-teal-500/30 transition-all"
+                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-teal-500/30 transition-all"
                     >
                         <div
-                            class="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-500/20 to-teal-500/5 border border-teal-500/20 flex items-center justify-center mb-4"
+                            class="w-10 h-10 rounded-lg bg-linear-to-br from-teal-500/20 to-teal-500/5 border border-teal-500/20 flex items-center justify-center mb-4"
                         >
                             <BellAlertIcon class="w-5 h-5 text-teal-400" />
                         </div>
-                        <h3 class="text-xl font-bold mb-2">Instant Alerts</h3>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Instant Alerts</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
                             Get notified via email, Slack, Discord, or webhook
                             when something breaks. No noise, just failures.
@@ -645,14 +657,14 @@
 
                     <!-- Feature 3 -->
                     <div
-                        class="group p-6 bg-gradient-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-emerald-500/30 transition-all"
+                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-emerald-500/30 transition-all"
                     >
                         <div
-                            class="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500/20 to-emerald-500/5 border border-emerald-500/20 flex items-center justify-center mb-4"
+                            class="w-10 h-10 rounded-lg bg-linear-to-br from-emerald-500/20 to-emerald-500/5 border border-emerald-500/20 flex items-center justify-center mb-4"
                         >
                             <ChartPieIcon class="w-5 h-5 text-emerald-400" />
                         </div>
-                        <h3 class="text-xl font-bold mb-2">Historical Data</h3>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Historical Data</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
                             Track uptime percentage, response times, and
                             incident history. All stored locally in your
@@ -662,14 +674,14 @@
 
                     <!-- Feature 4 -->
                     <div
-                        class="group p-6 bg-gradient-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all"
+                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all"
                     >
                         <div
-                            class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/20 flex items-center justify-center mb-4"
+                            class="w-10 h-10 rounded-lg bg-linear-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/20 flex items-center justify-center mb-4"
                         >
                             <CreditCardIcon class="w-5 h-5 text-cyan-400" />
                         </div>
-                        <h3 class="text-xl font-bold mb-2">Self-Hosted</h3>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Self-Hosted</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
                             Deploy on your own server. Docker-ready, environment
                             variables for config. Your data stays yours.
@@ -680,39 +692,39 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="py-16 px-4 sm:px-6 lg:px-8 relative">
-            <div class="absolute inset-0 overflow-hidden">
+        <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative">
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div
-                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-gradient-to-r from-cyan-500/5 via-teal-500/5 to-emerald-500/5 rounded-full blur-[120px]"
+                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[700px] h-[200px] sm:h-[300px] bg-linear-to-r from-cyan-500/5 via-teal-500/5 to-emerald-500/5 rounded-full blur-[80px] sm:blur-[120px]"
                 ></div>
             </div>
 
             <div class="max-w-4xl mx-auto text-center relative">
                 <h2
-                    class="text-4xl sm:text-5xl font-black mb-4"
+                    class="text-3xl sm:text-4xl lg:text-5xl font-black mb-3 sm:mb-4"
                     :style="{
                         fontFamily: 'Cabinet Grotesk, system-ui, sans-serif',
                     }"
                 >
                     Ready to stop wondering
                     <span
-                        class="block mt-2 bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
+                        class="block mt-1 sm:mt-2 bg-linear-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
                     >
                         if your site is down?
                     </span>
                 </h2>
 
-                <p class="text-lg text-gray-400 mb-8 max-w-xl mx-auto">
+                <p class="text-base sm:text-lg text-gray-400 mb-6 sm:mb-8 max-w-xl mx-auto">
                     Deploy PulseCheck in 5 minutes. Self-host it, own your data,
                     sleep better at night.
                 </p>
 
                 <div
-                    class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10"
+                    class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8 sm:mb-10"
                 >
                     <button
                         @click="handleDemo"
-                        class="group w-full sm:w-auto px-7 py-3.5 bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 rounded-lg font-semibold text-white hover:shadow-xl hover:shadow-teal-500/30 transition-all flex items-center justify-center gap-2"
+                        class="group w-full sm:w-auto px-6 sm:px-7 py-3.5 bg-linear-to-r from-cyan-600 via-teal-600 to-emerald-600 rounded-lg font-semibold text-white hover:shadow-xl hover:shadow-teal-500/30 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
                         <span>Try Demo</span>
                         <ArrowRightIcon
@@ -721,7 +733,7 @@
                     </button>
                     <button
                         @click="handleViewDashboard"
-                        class="w-full sm:w-auto px-7 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg font-semibold hover:bg-white/10 transition-all"
+                        class="w-full sm:w-auto px-6 sm:px-7 py-3.5 bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg font-semibold hover:bg-white/10 transition-all text-sm sm:text-base"
                     >
                         View Dashboard
                     </button>
@@ -730,15 +742,15 @@
         </section>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 py-10 px-4 sm:px-6 lg:px-8">
+        <footer class="border-t border-white/10 py-8 sm:py-10 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div
-                    class="flex flex-col md:flex-row items-center justify-between gap-6"
+                    class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6"
                 >
                     <div class="flex items-center gap-2.5">
                         <div class="relative">
                             <div
-                                class="w-7 h-7 rounded-md bg-gradient-to-br from-cyan-500 via-teal-500 to-emerald-500 flex items-center justify-center"
+                                class="w-7 h-7 rounded-md bg-linear-to-br from-cyan-500 via-teal-500 to-emerald-500 flex items-center justify-center"
                             >
                                 <div
                                     class="w-2 h-2 rounded-full bg-white"
@@ -746,11 +758,14 @@
                             </div>
                         </div>
                         <span
-                            class="text-lg font-bold"
+                            class="text-base font-bold"
                             :style="{ fontFamily: 'Space Mono, monospace' }"
                             >PulseCheck</span
                         >
                     </div>
+                    <p class="text-xs text-gray-600" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                        Self-hosted uptime monitoring
+                    </p>
                 </div>
             </div>
         </footer>
@@ -946,7 +961,6 @@ const animatedDotY = computed(() => {
 let chartInterval;
 onMounted(() => {
     chartInterval = setInterval(() => {
-        // Shift data and add new point
         chartData.value.shift();
         chartData.value.push(50 + Math.random() * 30);
 
@@ -965,7 +979,6 @@ const handleDemo = () => {
 };
 
 const handleViewDashboard = () => {
-    console.log("View Dashboard clicked");
-    // Add dashboard navigation logic
+    authModal.open('signin');
 };
 </script>

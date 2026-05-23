@@ -2,11 +2,11 @@
     <div class="min-h-screen bg-[#0D0D12] text-white">
         <!-- Header -->
         <div class="border-b border-white/10 bg-[#0D0D12]/90 backdrop-blur-md">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div class="flex items-center justify-between">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+                <div class="flex items-center justify-between gap-3">
                     <div>
                         <h1
-                            class="text-2xl font-bold tracking-tight"
+                            class="text-xl sm:text-2xl font-bold tracking-tight"
                             :style="{
                                 fontFamily:
                                     'Cabinet Grotesk, system-ui, sans-serif',
@@ -14,15 +14,15 @@
                         >
                             Monitors
                         </h1>
-                        <p class="text-sm text-gray-400 mt-1">
-                            {{ totalMonitors }} active monitors &bull;
-                            {{ operationalCount }} operational &bull;
+                        <p class="text-xs sm:text-sm text-gray-400 mt-0.5 sm:mt-1">
+                            {{ totalMonitors }} monitors &bull;
+                            {{ operationalCount }} up &bull;
                             {{ downCount }} down
                         </p>
                     </div>
                     <button
                         @click="openAddModal"
-                        class="px-4 py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2"
+                        class="px-3 sm:px-4 py-2 sm:py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2 shrink-0"
                     >
                         <PlusIcon class="w-4 h-4" />
                         <span class="hidden sm:inline">Add Monitor</span>
@@ -32,7 +32,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8">
             <!-- Loading -->
             <div v-if="loading" class="flex items-center justify-center py-16">
                 <div
@@ -53,11 +53,11 @@
                 <div
                     v-for="monitor in monitors"
                     :key="monitor.id"
-                    class="group p-5 bg-[#16161E] border border-white/10 rounded-lg hover:border-cyan-500/30 transition-all cursor-pointer"
+                    class="group p-4 sm:p-5 bg-[#16161E] border border-white/10 rounded-lg hover:border-cyan-500/30 transition-all cursor-pointer"
                     @click="viewMonitor(monitor)"
                 >
-                    <div class="flex items-start justify-between gap-4">
-                        <div class="flex items-start gap-4 flex-1 min-w-0">
+                    <div class="flex items-start justify-between gap-3 sm:gap-4">
+                        <div class="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
                             <div class="shrink-0 mt-1">
                                 <StatusIndicator :status="monitor.status" />
                             </div>
@@ -158,15 +158,15 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center gap-2 shrink-0">
+                        <div class="flex items-center gap-1 sm:gap-2 shrink-0">
                             <button
                                 @click.stop="runCheckNow(monitor)"
                                 :disabled="checking === monitor.id"
-                                class="p-2 hover:bg-cyan-500/10 rounded-lg transition-colors"
+                                class="p-2 hover:bg-cyan-500/10 rounded-lg transition-colors min-w-9 flex items-center justify-center"
                                 title="Run check now"
                             >
                                 <ArrowPathIcon
-                                    class="w-5 h-5 text-gray-400"
+                                    class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400"
                                     :class="{
                                         'animate-spin': checking === monitor.id,
                                     }"
@@ -174,17 +174,17 @@
                             </button>
                             <button
                                 @click.stop="openEditModal(monitor)"
-                                class="p-2 hover:bg-white/5 rounded-lg transition-colors"
+                                class="p-2 hover:bg-white/5 rounded-lg transition-colors min-w-9 flex items-center justify-center"
                                 title="Edit"
                             >
-                                <PencilIcon class="w-5 h-5 text-gray-400" />
+                                <PencilIcon class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                             </button>
                             <button
                                 @click.stop="confirmDelete(monitor)"
-                                class="p-2 hover:bg-red-500/10 rounded-lg transition-colors"
+                                class="p-2 hover:bg-red-500/10 rounded-lg transition-colors min-w-9 flex items-center justify-center"
                                 title="Delete"
                             >
-                                <TrashIcon class="w-5 h-5 text-gray-400" />
+                                <TrashIcon class="w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                             </button>
                         </div>
                     </div>
@@ -239,7 +239,7 @@
                     </div>
 
                     <div
-                        class="px-6 py-6 space-y-5 max-h-[70vh] overflow-y-auto"
+                        class="px-4 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-5 max-h-[60vh] sm:max-h-[70vh] overflow-y-auto"
                     >
                         <div
                             v-if="formError"

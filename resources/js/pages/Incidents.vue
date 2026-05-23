@@ -2,21 +2,21 @@
     <div class="min-h-screen bg-[#0D0D12] text-white">
         <!-- Header -->
         <div class="border-b border-white/10 bg-[#0D0D12]/90 backdrop-blur-md">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
                 <div>
                     <h1
-                        class="text-2xl font-bold tracking-tight"
+                        class="text-xl sm:text-2xl font-bold tracking-tight"
                         :style="{ fontFamily: 'Cabinet Grotesk, system-ui, sans-serif' }"
                     >
                         Incidents
                     </h1>
-                    <p class="text-sm text-gray-400 mt-1">Downtime history and incident reports</p>
+                    <p class="text-xs sm:text-sm text-gray-400 mt-0.5 sm:mt-1">Downtime history and incident reports</p>
                 </div>
             </div>
         </div>
 
         <!-- Main Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-4 sm:space-y-6">
             <!-- Loading -->
             <div v-if="loading" class="flex items-center justify-center py-16">
                 <div class="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin"></div>
@@ -24,25 +24,25 @@
 
             <template v-else>
                 <!-- Stats Overview -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="p-3 sm:p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                         <div class="text-xs text-gray-500 mb-1">Total Incidents</div>
-                        <div class="text-2xl font-bold">{{ stats.total }}</div>
+                        <div class="text-xl sm:text-2xl font-bold">{{ stats.total }}</div>
                         <div class="text-xs text-gray-400 mt-1">Last 30 days</div>
                     </div>
-                    <div class="p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                    <div class="p-3 sm:p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                         <div class="text-xs text-gray-500 mb-1">Critical</div>
-                        <div class="text-2xl font-bold text-red-400">{{ stats.critical }}</div>
+                        <div class="text-xl sm:text-2xl font-bold text-red-400">{{ stats.critical }}</div>
                         <div class="text-xs text-gray-400 mt-1">High priority</div>
                     </div>
-                    <div class="p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                    <div class="p-3 sm:p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                         <div class="text-xs text-gray-500 mb-1">Avg Downtime</div>
-                        <div class="text-2xl font-bold text-yellow-400">{{ stats.average_downtime }}</div>
+                        <div class="text-xl sm:text-2xl font-bold text-yellow-400">{{ stats.average_downtime }}</div>
                         <div class="text-xs text-gray-400 mt-1">Per incident</div>
                     </div>
-                    <div class="p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                    <div class="p-3 sm:p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                         <div class="text-xs text-gray-500 mb-1">MTTR</div>
-                        <div class="text-2xl font-bold text-emerald-400">{{ stats.mttr }}</div>
+                        <div class="text-xl sm:text-2xl font-bold text-emerald-400">{{ stats.mttr }}</div>
                         <div class="text-xs text-gray-400 mt-1">Mean time to recovery</div>
                     </div>
                 </div>
@@ -63,17 +63,17 @@
                 </div>
 
                 <!-- Incidents Timeline -->
-                <div class="bg-[#16161E] border border-white/10 rounded-lg p-6">
-                    <div class="mb-6">
-                        <h2 class="text-lg font-semibold">Incident History</h2>
-                        <p class="text-xs text-gray-500 mt-1">Chronological list of all incidents</p>
+                <div class="bg-[#16161E] border border-white/10 rounded-lg p-4 sm:p-6">
+                    <div class="mb-4 sm:mb-6">
+                        <h2 class="text-base sm:text-lg font-semibold">Incident History</h2>
+                        <p class="text-xs text-gray-500 mt-0.5 sm:mt-1">Chronological list of all incidents</p>
                     </div>
 
                     <div class="space-y-4">
                         <div
                             v-for="incident in filteredIncidents"
                             :key="incident.id"
-                            class="relative pl-8 pb-4 border-l-2"
+                            class="relative pl-6 sm:pl-8 pb-4 border-l-2"
                             :class="{
                                 'border-red-500': incident.severity === 'critical' && incident.status !== 'resolved',
                                 'border-yellow-500': incident.severity === 'warning' && incident.status !== 'resolved',
@@ -91,9 +91,9 @@
                                 }"></div>
 
                             <!-- Card -->
-                            <div class="bg-[#0D0D12] rounded-lg p-5 hover:bg-[#1A1A24] transition-colors">
+                            <div class="bg-[#0D0D12] rounded-lg p-4 sm:p-5 hover:bg-[#1A1A24] transition-colors">
                                 <!-- Header -->
-                                <div class="flex items-start justify-between gap-4 mb-3">
+                                <div class="flex items-start justify-between gap-3 sm:gap-4 mb-3">
                                     <div class="flex-1 min-w-0">
                                         <div class="flex items-center gap-2 mb-2 flex-wrap">
                                             <span class="px-2 py-0.5 text-xs rounded-md capitalize font-medium"
@@ -116,7 +116,7 @@
                                 </div>
 
                                 <!-- Metrics -->
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4 text-xs" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 mb-4 text-xs" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                                     <div><div class="text-gray-500">Started</div><div class="font-semibold text-white">{{ incident.start_time }}</div></div>
                                     <div><div class="text-gray-500">Duration</div><div class="font-semibold text-white">{{ incident.duration }}</div></div>
                                     <div><div class="text-gray-500">Impact</div><div class="font-semibold text-white">{{ incident.impact ?? '—' }}</div></div>

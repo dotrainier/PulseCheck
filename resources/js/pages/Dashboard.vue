@@ -2,26 +2,27 @@
     <div class="min-h-screen bg-[#0D0D12] text-white">
         <!-- Header -->
         <div class="border-b border-white/10 bg-[#0D0D12]/90 backdrop-blur-md">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div class="flex items-center justify-between">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+                <div class="flex items-center justify-between gap-3">
                     <div>
                         <h1
-                            class="text-2xl font-bold tracking-tight"
+                            class="text-xl sm:text-2xl font-bold tracking-tight"
                             :style="{ fontFamily: 'Cabinet Grotesk, system-ui, sans-serif' }"
                         >
                             Dashboard
                         </h1>
-                        <p class="text-sm text-gray-400 mt-1">
+                        <p class="text-xs sm:text-sm text-gray-400 mt-0.5 sm:mt-1">
                             System health overview and analytics
                         </p>
                     </div>
                     <div
-                        class="hidden sm:flex items-center gap-2 text-xs text-gray-500"
+                        class="flex items-center gap-2 text-xs text-gray-500 shrink-0"
                         :style="{ fontFamily: 'JetBrains Mono, monospace' }"
                     >
                         <div class="flex items-center gap-1.5">
                             <div class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></div>
-                            <span>Last updated: {{ lastUpdated }}</span>
+                            <span class="hidden sm:inline">Last updated: {{ lastUpdated }}</span>
+                            <span class="sm:hidden">Live</span>
                         </div>
                     </div>
                 </div>
@@ -29,7 +30,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-8">
             <!-- Loading -->
             <div v-if="loading" class="flex items-center justify-center py-16">
                 <div class="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin"></div>
@@ -38,7 +39,7 @@
             <template v-else>
                 <!-- System Status Banner -->
                 <div
-                    class="flex items-center gap-3 p-4 rounded-lg"
+                    class="flex items-center gap-3 p-3 sm:p-4 rounded-lg flex-wrap sm:flex-nowrap"
                     :class="{
                         'bg-cyan-500/5 border border-cyan-500/20': systemStatus === 'operational',
                         'bg-red-500/5 border border-red-500/20': systemStatus === 'down',
@@ -46,9 +47,9 @@
                     }"
                 >
                     <StatusIndicator :status="systemStatus" size="md" />
-                    <div class="flex-1">
+                    <div class="flex-1 min-w-0">
                         <div
-                            class="font-semibold"
+                            class="font-semibold text-sm sm:text-base"
                             :class="{
                                 'text-cyan-300': systemStatus === 'operational',
                                 'text-red-300': systemStatus === 'down',
@@ -69,61 +70,61 @@
                     </div>
                     <router-link
                         to="/monitors"
-                        class="px-3 py-1.5 text-sm text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 rounded-lg transition-all"
+                        class="px-3 py-1.5 text-xs sm:text-sm text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 rounded-lg transition-all shrink-0"
                     >
                         View Monitors →
                     </router-link>
                 </div>
 
                 <!-- Key Metrics -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="p-5 bg-[#16161E] border border-white/10 rounded-lg">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="text-sm text-gray-400">Total Monitors</div>
-                            <div class="p-2 bg-linear-to-br from-cyan-500/20 to-teal-500/20 rounded-lg">
-                                <ChartBarIcon class="w-4 h-4 text-cyan-400" />
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="p-4 sm:p-5 bg-[#16161E] border border-white/10 rounded-lg">
+                        <div class="flex items-center justify-between mb-2 sm:mb-3">
+                            <div class="text-xs sm:text-sm text-gray-400">Total Monitors</div>
+                            <div class="p-1.5 sm:p-2 bg-linear-to-br from-cyan-500/20 to-teal-500/20 rounded-lg">
+                                <ChartBarIcon class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400" />
                             </div>
                         </div>
-                        <div class="text-3xl font-bold" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                        <div class="text-2xl sm:text-3xl font-bold" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                             {{ totalMonitors }}
                         </div>
                         <div class="text-xs text-gray-500 mt-1">Active monitoring</div>
                     </div>
 
-                    <div class="p-5 bg-[#16161E] border border-white/10 rounded-lg">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="text-sm text-gray-400">Uptime (30d)</div>
-                            <div class="p-2 bg-linear-to-br from-emerald-500/20 to-teal-500/20 rounded-lg">
-                                <ArrowTrendingUpIcon class="w-4 h-4 text-emerald-400" />
+                    <div class="p-4 sm:p-5 bg-[#16161E] border border-white/10 rounded-lg">
+                        <div class="flex items-center justify-between mb-2 sm:mb-3">
+                            <div class="text-xs sm:text-sm text-gray-400">Uptime (30d)</div>
+                            <div class="p-1.5 sm:p-2 bg-linear-to-br from-emerald-500/20 to-teal-500/20 rounded-lg">
+                                <ArrowTrendingUpIcon class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" />
                             </div>
                         </div>
-                        <div class="text-3xl font-bold text-emerald-400" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                        <div class="text-2xl sm:text-3xl font-bold text-emerald-400" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                             {{ averageUptime }}%
                         </div>
-                        <div class="text-xs text-gray-500 mt-1">Average across all monitors</div>
+                        <div class="text-xs text-gray-500 mt-1">Avg across monitors</div>
                     </div>
 
-                    <div class="p-5 bg-[#16161E] border border-white/10 rounded-lg">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="text-sm text-gray-400">Avg Response</div>
-                            <div class="p-2 bg-linear-to-br from-purple-500/20 to-pink-500/20 rounded-lg">
-                                <BoltIcon class="w-4 h-4 text-purple-400" />
+                    <div class="p-4 sm:p-5 bg-[#16161E] border border-white/10 rounded-lg">
+                        <div class="flex items-center justify-between mb-2 sm:mb-3">
+                            <div class="text-xs sm:text-sm text-gray-400">Avg Response</div>
+                            <div class="p-1.5 sm:p-2 bg-linear-to-br from-purple-500/20 to-pink-500/20 rounded-lg">
+                                <BoltIcon class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400" />
                             </div>
                         </div>
-                        <div class="text-3xl font-bold" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                        <div class="text-2xl sm:text-3xl font-bold" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                             {{ averageResponseTime }}ms
                         </div>
-                        <div class="text-xs text-gray-500 mt-1">Global average latency</div>
+                        <div class="text-xs text-gray-500 mt-1">Global avg latency</div>
                     </div>
 
-                    <div class="p-5 bg-[#16161E] border border-white/10 rounded-lg">
-                        <div class="flex items-center justify-between mb-3">
-                            <div class="text-sm text-gray-400">Incidents</div>
-                            <div class="p-2 bg-linear-to-br from-red-500/20 to-orange-500/20 rounded-lg">
-                                <ExclamationTriangleIcon class="w-4 h-4 text-red-400" />
+                    <div class="p-4 sm:p-5 bg-[#16161E] border border-white/10 rounded-lg">
+                        <div class="flex items-center justify-between mb-2 sm:mb-3">
+                            <div class="text-xs sm:text-sm text-gray-400">Incidents</div>
+                            <div class="p-1.5 sm:p-2 bg-linear-to-br from-red-500/20 to-orange-500/20 rounded-lg">
+                                <ExclamationTriangleIcon class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-red-400" />
                             </div>
                         </div>
-                        <div class="text-3xl font-bold" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                        <div class="text-2xl sm:text-3xl font-bold" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                             {{ totalIncidents }}
                         </div>
                         <div class="text-xs text-gray-500 mt-1">Last 7 days</div>
@@ -131,19 +132,20 @@
                 </div>
 
                 <!-- Response Time Chart -->
-                <div class="bg-[#16161E] border border-white/10 rounded-lg p-6">
-                    <div class="flex items-center justify-between mb-6">
+                <div class="bg-[#16161E] border border-white/10 rounded-lg p-4 sm:p-6">
+                    <div class="flex items-center justify-between mb-4 sm:mb-6">
                         <div>
-                            <h2 class="text-lg font-semibold">Response Time Trend</h2>
-                            <p class="text-xs text-gray-500 mt-1">Average response time over the last 24 hours</p>
+                            <h2 class="text-base sm:text-lg font-semibold">Response Time Trend</h2>
+                            <p class="text-xs text-gray-500 mt-0.5 sm:mt-1">Average response time over the last 24 hours</p>
                         </div>
                         <div class="flex items-center gap-2 text-xs text-gray-500" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                             <div class="w-2 h-2 rounded-full bg-cyan-400"></div>
-                            <span>{{ averageResponseTime }}ms avg</span>
+                            <span class="hidden sm:inline">{{ averageResponseTime }}ms avg</span>
+                            <span class="sm:hidden">{{ averageResponseTime }}ms</span>
                         </div>
                     </div>
                     <div class="relative">
-                        <svg viewBox="0 0 800 160" class="w-full h-40" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 800 160" class="w-full h-28 sm:h-40" xmlns="http://www.w3.org/2000/svg">
                             <line v-for="i in 4" :key="i" x1="0" :y1="i * 40" x2="800" :y2="i * 40" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
                             <path :d="chartPath" fill="url(#chartGradient)" opacity="0.2" />
                             <path :d="chartLine" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" />
@@ -158,12 +160,12 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                     <!-- Uptime Distribution -->
-                    <div class="bg-[#16161E] border border-white/10 rounded-lg p-6">
-                        <div class="mb-6">
-                            <h2 class="text-lg font-semibold">Uptime Distribution</h2>
-                            <p class="text-xs text-gray-500 mt-1">Monitor health breakdown</p>
+                    <div class="bg-[#16161E] border border-white/10 rounded-lg p-4 sm:p-6">
+                        <div class="mb-4 sm:mb-6">
+                            <h2 class="text-base sm:text-lg font-semibold">Uptime Distribution</h2>
+                            <p class="text-xs text-gray-500 mt-0.5 sm:mt-1">Monitor health breakdown</p>
                         </div>
                         <div class="space-y-4">
                             <div>
@@ -209,11 +211,11 @@
                     </div>
 
                     <!-- Recent Incidents -->
-                    <div class="bg-[#16161E] border border-white/10 rounded-lg p-6">
-                        <div class="flex items-center justify-between mb-6">
+                    <div class="bg-[#16161E] border border-white/10 rounded-lg p-4 sm:p-6">
+                        <div class="flex items-center justify-between mb-4 sm:mb-6">
                             <div>
-                                <h2 class="text-lg font-semibold">Recent Incidents</h2>
-                                <p class="text-xs text-gray-500 mt-1">Latest downtime events</p>
+                                <h2 class="text-base sm:text-lg font-semibold">Recent Incidents</h2>
+                                <p class="text-xs text-gray-500 mt-0.5 sm:mt-1">Latest downtime events</p>
                             </div>
                             <router-link to="/incidents" class="text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
                                 View All →
