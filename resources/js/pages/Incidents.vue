@@ -168,6 +168,7 @@
 import { ref, computed, onMounted } from "vue";
 import { CheckCircleIcon } from "@heroicons/vue/24/solid";
 import api from "@/utils/axios";
+import { timeAgo } from "@/utils/timeAgo";
 
 const loading = ref(true);
 const allIncidents = ref([]);
@@ -181,17 +182,6 @@ const statusFilters = [
     { label: "Resolved", value: "resolved" },
     { label: "Investigating", value: "investigating" },
 ];
-
-const timeAgo = (dateStr) => {
-    if (!dateStr) return "—";
-    const diff = Date.now() - new Date(dateStr).getTime();
-    const m = Math.floor(diff / 60000);
-    if (m < 1) return "Just now";
-    if (m < 60) return `${m} min ago`;
-    const h = Math.floor(m / 60);
-    if (h < 24) return `${h}h ago`;
-    return `${Math.floor(h / 24)}d ago`;
-};
 
 const filteredIncidents = computed(() => {
     if (activeFilter.value === "all") return allIncidents.value;

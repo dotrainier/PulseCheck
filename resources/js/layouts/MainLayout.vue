@@ -133,7 +133,6 @@ import {
     ChartBarIcon,
     ComputerDesktopIcon,
     ExclamationTriangleIcon,
-    Cog6ToothIcon,
     ArrowRightOnRectangleIcon,
     Bars3Icon,
     XMarkIcon,
@@ -153,7 +152,6 @@ const navigation = [
     { name: "Dashboard", path: "/dashboard", icon: ChartBarIcon },
     { name: "Monitors", path: "/monitors", icon: ComputerDesktopIcon },
     { name: "Incidents", path: "/incidents", icon: ExclamationTriangleIcon },
-    { name: "Settings", path: "/settings", icon: Cog6ToothIcon },
 ];
 
 const isActive = (path) => route.path.startsWith(path);

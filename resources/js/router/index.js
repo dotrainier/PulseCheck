@@ -32,6 +32,7 @@ const routes = [
         component: Monitors,
         meta: {
             title: "Monitors - PulseCheck",
+            layout: "main",
             requiresAuth: true,
         },
     },
@@ -41,6 +42,7 @@ const routes = [
         component: MonitorDetail,
         meta: {
             title: "Monitor Details - PulseCheck",
+            layout: "main",
             requiresAuth: true,
         },
     },
@@ -50,6 +52,7 @@ const routes = [
         component: Incidents,
         meta: {
             title: "Incidents - PulseCheck",
+            layout: "main",
             requiresAuth: true,
         },
     },
@@ -69,7 +72,7 @@ const router = createRouter({
 
 // Auth guard
 router.beforeEach((to, from, next) => {
-    const isAuthenticated = !!localStorage.getItem("auth_token"); // Adjust based on your auth implementation
+    const isAuthenticated = !!localStorage.getItem("auth_token");
 
     if (to.meta.title) {
         document.title = to.meta.title;

@@ -35,10 +35,14 @@ class Incident extends Model
 
         $diff = $this->created_at->diff($this->resolved_at);
 
+        if ($diff->d > 0) {
+            return "{$diff->d}d {$diff->h}h {$diff->i}m";
+        }
+
         if ($diff->h > 0) {
             return "{$diff->h}h {$diff->i}m";
         }
 
-        return "{$diff->i} minutes";
+        return "{$diff->i}m";
     }
 }

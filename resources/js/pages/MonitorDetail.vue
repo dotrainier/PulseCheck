@@ -276,6 +276,7 @@ import {
 } from "@heroicons/vue/24/solid";
 import api from "@/utils/axios";
 import { useMonitors } from "@/composables/useMonitors";
+import { timeAgo } from "@/utils/timeAgo";
 
 const route = useRoute();
 const router = useRouter();
@@ -291,18 +292,6 @@ const recentChecks = ref([]);
 const monitorIncidents = ref([]);
 
 const monitorId = computed(() => Number(route.params.id));
-
-const timeAgo = (dateStr) => {
-    if (!dateStr) return "Never";
-    const diff = Date.now() - new Date(dateStr).getTime();
-    const m = Math.floor(diff / 60000);
-    if (m < 1) return "Just now";
-    if (m === 1) return "1 min ago";
-    if (m < 60) return `${m} min ago`;
-    const h = Math.floor(m / 60);
-    if (h < 24) return `${h}h ago`;
-    return `${Math.floor(h / 24)}d ago`;
-};
 
 const formatDate = (dateStr) => {
     if (!dateStr) return "—";
@@ -337,10 +326,12 @@ const fetchChecks = async () => {
 
 const fetchIncidents = async () => {
     try {
-        const { data } = await api.get("/api/incidents");
+        const { data } = await api.get("/api/incidents", {
+            params: { monitor_id: monitorId.value },
+        });
         const sevenDaysAgo = Date.now() - 7 * 86400000;
         monitorIncidents.value = (data.data ?? []).filter(
-            (i) => i.monitor_id === monitorId.value && new Date(i.created_at).getTime() >= sevenDaysAgo,
+            (i) => new Date(i.created_at).getTime() >= sevenDaysAgo,
         );
     } catch {
         monitorIncidents.value = [];

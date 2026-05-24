@@ -24,6 +24,10 @@ class IncidentController extends Controller
             $query->where('status', $request->status);
         }
 
+        if ($request->filled('monitor_id') && is_numeric($request->monitor_id)) {
+            $query->where('monitor_id', (int) $request->monitor_id);
+        }
+
         $incidents = $query->get()->map(fn ($incident) => [
             ...$incident->toArray(),
             'duration' => $incident->duration,
@@ -47,7 +51,7 @@ class IncidentController extends Controller
         ]);
     }
 
-    public function show(Request $request, Incident $incident): JsonResponse
+    public function show(Incident $incident): JsonResponse
     {
         $this->authorize('view', $incident);
         $incident->load(['monitor:id,name', 'updates']);

@@ -23,7 +23,6 @@ class MonitorService
 
         try {
             $response = Http::timeout($monitor->timeout)
-                ->withOptions(['verify' => false])
                 ->get($monitor->url);
 
             $responseTime = (int) ((microtime(true) - $start) * 1000);
@@ -186,21 +185,26 @@ class MonitorService
 
     public function getUptimeHistory(Monitor $monitor, int $days = 30): array
     {
+        $since = now()->subDays($days - 1)->startOfDay();
+
+        $grouped = $monitor->checks()
+            ->where('created_at', '>=', $since)
+            ->selectRaw("DATE(created_at) as check_date, COUNT(*) as total, COUNT(CASE WHEN success = true THEN 1 END) as successful")
+            ->groupBy('check_date')
+            ->get()
+            ->keyBy('check_date');
+
         $history = [];
-
         for ($i = $days - 1; $i >= 0; $i--) {
-            $date = now()->subDays($i);
+            $date    = now()->subDays($i);
             $dateStr = $date->toDateString();
-
-            $total = $monitor->checks()->whereDate('created_at', $dateStr)->count();
-            $successful = $monitor->checks()
-                ->whereDate('created_at', $dateStr)
-                ->where('success', true)
-                ->count();
+            $row     = $grouped->get($dateStr);
 
             $history[] = [
-                'date' => $date->format('M j'),
-                'uptime' => $total > 0 ? round(($successful / $total) * 100, 2) : ($i === 0 ? 100 : 100),
+                'date'   => $date->format('M j'),
+                'uptime' => $row && $row->total > 0
+                    ? round(($row->successful / $row->total) * 100, 2)
+                    : 100,
             ];
         }
 

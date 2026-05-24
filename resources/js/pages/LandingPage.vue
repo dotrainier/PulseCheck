@@ -634,8 +634,9 @@
                             Continuous Health Checks
                         </h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
-                            Ping your endpoints every 30 seconds. HTTP, HTTPS,
-                            TCP, and DNS monitoring out of the box.
+                            Ping your HTTP and HTTPS endpoints as often as every
+                            30 seconds. Customisable intervals, expected status
+                            codes, and timeout thresholds.
                         </p>
                     </div>
 
@@ -650,8 +651,9 @@
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2">Instant Alerts</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
-                            Get notified via email, Slack, Discord, or webhook
-                            when something breaks. No noise, just failures.
+                            Get notified via email the moment a monitor goes
+                            down and again when it recovers. No noise, just
+                            failures.
                         </p>
                     </div>
 
@@ -788,10 +790,23 @@ import {
 
 const authModal = useAuthModalStore();
 
-// Time display
-const lastChecked = ref("2 min ago");
-
 const showDemo = ref(false);
+
+// Simulated "last checked" ticker for the hero mockup
+const lastCheckedSeconds = ref(12);
+const lastChecked = computed(() => {
+    const s = lastCheckedSeconds.value;
+    if (s < 60) return `${s}s ago`;
+    return `${Math.floor(s / 60)}m ago`;
+});
+let tickInterval;
+onMounted(() => {
+    tickInterval = setInterval(() => {
+        lastCheckedSeconds.value += 1;
+        if (lastCheckedSeconds.value > 30) lastCheckedSeconds.value = 0;
+    }, 1000);
+});
+onUnmounted(() => clearInterval(tickInterval));
 
 // Service data
 const services = ref([
