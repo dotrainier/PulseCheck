@@ -2,7 +2,7 @@
 set -e
 
 echo "Waiting for PostgreSQL..."
-until (echo > /dev/tcp/postgres/5432) 2>/dev/null; do
+until php artisan db:show > /dev/null 2>&1; do
     sleep 2
 done
 
