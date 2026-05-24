@@ -11,11 +11,12 @@ RUN apt-get update && apt-get install -y \
     curl \
     libzip-dev \
     libpq-dev \
+    libicu-dev \
     nodejs \
     npm
 
 # PHP extensions (PostgreSQL driver)
-RUN docker-php-ext-install pdo pdo_pgsql
+RUN docker-php-ext-install pdo pdo_pgsql intl
 
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
