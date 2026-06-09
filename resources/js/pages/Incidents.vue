@@ -1,7 +1,7 @@
 <template>
-    <div class="min-h-screen bg-[#0D0D12] text-white">
+    <div class="min-h-screen bg-[#070D1A] text-white">
         <!-- Header -->
-        <div class="border-b border-white/10 bg-[#0D0D12]/90 backdrop-blur-md">
+        <div class="border-b border-white/8 bg-[#070D1A]/90 backdrop-blur-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
                 <div>
                     <h1
@@ -19,30 +19,30 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-4 sm:space-y-6">
             <!-- Loading -->
             <div v-if="loading" class="flex items-center justify-center py-16">
-                <div class="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin"></div>
+                <div class="w-8 h-8 border-2 border-amber-500/30 border-t-amber-400 rounded-full animate-spin"></div>
             </div>
 
             <template v-else>
                 <!-- Stats Overview -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-                    <div class="p-3 sm:p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                    <div class="p-3 sm:p-4 bg-[#0D1828] border border-white/8 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                         <div class="text-xs text-gray-500 mb-1">Total Incidents</div>
                         <div class="text-xl sm:text-2xl font-bold">{{ stats.total }}</div>
                         <div class="text-xs text-gray-400 mt-1">Last 30 days</div>
                     </div>
-                    <div class="p-3 sm:p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                    <div class="p-3 sm:p-4 bg-[#0D1828] border border-white/8 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                         <div class="text-xs text-gray-500 mb-1">Critical</div>
                         <div class="text-xl sm:text-2xl font-bold text-red-400">{{ stats.critical }}</div>
                         <div class="text-xs text-gray-400 mt-1">High priority</div>
                     </div>
-                    <div class="p-3 sm:p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                    <div class="p-3 sm:p-4 bg-[#0D1828] border border-white/8 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                         <div class="text-xs text-gray-500 mb-1">Avg Downtime</div>
                         <div class="text-xl sm:text-2xl font-bold text-yellow-400">{{ stats.average_downtime }}</div>
                         <div class="text-xs text-gray-400 mt-1">Per incident</div>
                     </div>
-                    <div class="p-3 sm:p-4 bg-[#16161E] border border-white/10 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
+                    <div class="p-3 sm:p-4 bg-[#0D1828] border border-white/8 rounded-lg" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                         <div class="text-xs text-gray-500 mb-1">MTTR</div>
-                        <div class="text-xl sm:text-2xl font-bold text-emerald-400">{{ stats.mttr }}</div>
+                        <div class="text-xl sm:text-2xl font-bold text-green-400">{{ stats.mttr }}</div>
                         <div class="text-xs text-gray-400 mt-1">Mean time to recovery</div>
                     </div>
                 </div>
@@ -56,14 +56,14 @@
                         class="px-3 py-1.5 text-sm rounded-lg transition-all"
                         :style="{ fontFamily: 'JetBrains Mono, monospace' }"
                         :class="{
-                            'bg-linear-to-r from-cyan-600 to-teal-600 text-white shadow-lg shadow-cyan-500/25': activeFilter === f.value,
-                            'bg-[#16161E] text-gray-400 hover:text-white border border-white/10': activeFilter !== f.value,
+                            'bg-amber-500/15 text-amber-300 border border-amber-500/25': activeFilter === f.value,
+                            'bg-[#0D1828] text-gray-400 hover:text-white border border-white/8': activeFilter !== f.value,
                         }"
                     >{{ f.label }}</button>
                 </div>
 
                 <!-- Incidents Timeline -->
-                <div class="bg-[#16161E] border border-white/10 rounded-lg p-4 sm:p-6">
+                <div class="bg-[#0D1828] border border-white/8 rounded-lg p-4 sm:p-6">
                     <div class="mb-4 sm:mb-6">
                         <h2 class="text-base sm:text-lg font-semibold">Incident History</h2>
                         <p class="text-xs text-gray-500 mt-0.5 sm:mt-1">Chronological list of all incidents</p>
@@ -91,7 +91,7 @@
                                 }"></div>
 
                             <!-- Card -->
-                            <div class="bg-[#0D0D12] rounded-lg p-4 sm:p-5 hover:bg-[#1A1A24] transition-colors">
+                            <div class="bg-[#070D1A] rounded-lg p-4 sm:p-5 hover:bg-[#0D1828] transition-colors">
                                 <!-- Header -->
                                 <div class="flex items-start justify-between gap-3 sm:gap-4 mb-3">
                                     <div class="flex-1 min-w-0">
@@ -124,7 +124,7 @@
                                 </div>
 
                                 <!-- Updates -->
-                                <div v-if="incident.updates && incident.updates.length" class="border-t border-white/10 pt-4 space-y-3">
+                                <div v-if="incident.updates && incident.updates.length" class="border-t border-white/8 pt-4 space-y-3">
                                     <div class="text-xs font-semibold text-gray-400">UPDATES</div>
                                     <div v-for="(update, idx) in incident.updates" :key="idx" class="flex gap-3">
                                         <div class="shrink-0 w-1.5 h-1.5 rounded-full bg-gray-500 mt-1.5"></div>
@@ -138,7 +138,7 @@
                                 </div>
 
                                 <!-- Error Details -->
-                                <div v-if="incident.error_details" class="mt-4 p-3 bg-[#16161E] rounded-lg border border-white/10">
+                                <div v-if="incident.error_details" class="mt-4 p-3 bg-[#0D1828] rounded-lg border border-white/8">
                                     <div class="text-xs font-semibold text-gray-400 mb-2">ERROR DETAILS</div>
                                     <code class="text-xs text-red-400 block overflow-x-auto" :style="{ fontFamily: 'JetBrains Mono, monospace' }">
                                         {{ incident.error_details }}
@@ -150,8 +150,8 @@
 
                     <!-- Empty State -->
                     <div v-if="filteredIncidents.length === 0" class="text-center py-12">
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-linear-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
-                            <CheckCircleIcon class="w-8 h-8 text-emerald-400" />
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                            <CheckCircleIcon class="w-8 h-8 text-green-400" />
                         </div>
                         <h3 class="text-lg font-semibold mb-2">No incidents found</h3>
                         <p class="text-gray-400">

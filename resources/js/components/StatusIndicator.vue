@@ -2,7 +2,7 @@
     <div :class="containerClass">
         <div
             v-if="showPing"
-            class="rounded-full bg-cyan-400 animate-ping absolute"
+            class="rounded-full bg-green-400 animate-ping absolute"
             :class="sizeClass"
         ></div>
         <div class="rounded-full" :class="[sizeClass, statusColorClass]"></div>
@@ -35,7 +35,7 @@ const showPing = computed(() => props.status === "operational");
 
 const statusColorClass = computed(() => {
     const colors = {
-        operational: "bg-cyan-400",
+        operational: "bg-green-400",
         down: "bg-red-400",
         degraded: "bg-yellow-400",
         unknown: "bg-gray-400",

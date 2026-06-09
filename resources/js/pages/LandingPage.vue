@@ -2,16 +2,16 @@
     <DemoModal :isOpen="showDemo" @close="showDemo = false" />
     <AuthModal />
     <div
-        class="min-h-screen bg-[#0D0D12] text-white overflow-x-hidden font-sans"
+        class="min-h-screen bg-[#070D1A] text-white overflow-x-hidden font-sans"
     >
         <!-- Navigation -->
-        <nav class="fixed top-0 w-full z-50 bg-[#0D0D12]/90 backdrop-blur-md border-b border-white/5">
+        <nav class="fixed top-0 w-full z-50 bg-[#070D1A]/90 backdrop-blur-md border-b border-white/5">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-14 sm:h-16">
                     <div class="flex items-center gap-2.5">
                         <div class="relative">
                             <div
-                                class="w-7 h-7 rounded-md bg-linear-to-br from-cyan-500 via-teal-500 to-emerald-500 flex items-center justify-center"
+                                class="w-7 h-7 rounded-md bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/30"
                             >
                                 <div
                                     class="w-2 h-2 rounded-full bg-white animate-ping absolute"
@@ -36,7 +36,7 @@
                         </button>
                         <button
                             @click="handleDemo"
-                            class="px-3.5 py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-md hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25"
+                            class="px-3.5 py-2 bg-amber-500 text-sm font-medium rounded-md hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/25 text-black"
                         >
                             Demo
                         </button>
@@ -52,13 +52,13 @@
             <!-- Background Effects -->
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div
-                    class="absolute top-20 left-0 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-cyan-500/5 rounded-full blur-[100px] sm:blur-[140px]"
+                    class="absolute top-20 left-0 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-amber-500/5 rounded-full blur-[100px] sm:blur-[140px]"
                 ></div>
                 <div
-                    class="absolute top-40 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-teal-500/5 rounded-full blur-[80px] sm:blur-[120px]"
+                    class="absolute top-40 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-orange-500/4 rounded-full blur-[80px] sm:blur-[120px]"
                 ></div>
                 <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-emerald-500/5 rounded-full blur-[80px] sm:blur-[100px]"
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] bg-amber-500/3 rounded-full blur-[80px] sm:blur-[100px]"
                 ></div>
             </div>
 
@@ -66,14 +66,14 @@
                 <div class="text-center space-y-5 sm:space-y-6 mb-12 sm:mb-16">
                     <!-- Badge -->
                     <div
-                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-linear-to-r from-cyan-500/10 via-teal-500/10 to-emerald-500/10 border border-cyan-500/20 text-xs sm:text-sm"
+                        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/8 border border-amber-500/20 text-xs sm:text-sm"
                     >
                         <div class="relative flex items-center justify-center">
                             <div
-                                class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping absolute"
+                                class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping absolute"
                             ></div>
                             <div
-                                class="w-1.5 h-1.5 rounded-full bg-cyan-400"
+                                class="w-1.5 h-1.5 rounded-full bg-amber-400"
                             ></div>
                         </div>
                         <span
@@ -93,7 +93,7 @@
                     >
                         Monitor your
                         <span
-                            class="block mt-1 sm:mt-2 bg-linear-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent animate-gradient"
+                            class="block mt-1 sm:mt-2 bg-linear-to-r from-amber-300 via-orange-300 to-amber-400 bg-clip-text text-transparent animate-gradient"
                         >
                             websites and APIs
                         </span>
@@ -115,7 +115,7 @@
                     >
                         <button
                             @click="handleDemo"
-                            class="group w-full sm:w-auto px-6 py-3.5 sm:py-3 bg-linear-to-r from-cyan-600 via-teal-600 to-emerald-600 rounded-lg font-semibold text-white hover:shadow-xl hover:shadow-teal-500/30 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
+                            class="group w-full sm:w-auto px-6 py-3.5 sm:py-3 bg-amber-500 rounded-lg font-semibold text-black hover:bg-amber-400 hover:shadow-xl hover:shadow-amber-500/30 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                         >
                             <span>Try the Demo</span>
                             <ArrowRightIcon
@@ -137,19 +137,19 @@
                     >
                         <div class="flex items-center gap-2">
                             <div
-                                class="w-1.5 h-1.5 rounded-full bg-cyan-400"
+                                class="w-1.5 h-1.5 rounded-full bg-amber-400"
                             ></div>
                             <span class="text-gray-500">Checks every 30s</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div
-                                class="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                                class="w-1.5 h-1.5 rounded-full bg-green-400"
                             ></div>
                             <span class="text-gray-500">Self-hosted</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <div
-                                class="w-1.5 h-1.5 rounded-full bg-teal-400"
+                                class="w-1.5 h-1.5 rounded-full bg-amber-400"
                             ></div>
                             <span class="text-gray-500">Open source</span>
                         </div>
@@ -159,16 +159,16 @@
                 <!-- Hero Visual - Terminal-style Dashboard -->
                 <div class="relative max-w-4xl mx-auto mt-8 sm:mt-12">
                     <div
-                        class="absolute -inset-4 sm:-inset-6 bg-linear-to-r from-cyan-500/10 via-teal-500/10 to-emerald-500/10 rounded-2xl blur-2xl"
+                        class="absolute -inset-4 sm:-inset-6 bg-amber-500/6 rounded-2xl blur-2xl"
                     ></div>
 
                     <div
-                        class="relative bg-[#16161E] rounded-xl border border-white/10 overflow-hidden shadow-2xl"
+                        class="relative bg-[#0D1828] rounded-xl border border-white/8 overflow-hidden shadow-2xl"
                         :style="{ fontFamily: 'JetBrains Mono, monospace' }"
                     >
                         <!-- Terminal Header -->
                         <div
-                            class="px-3 sm:px-4 py-2.5 sm:py-3 bg-[#1A1A24] border-b border-white/10 flex items-center justify-between"
+                            class="px-3 sm:px-4 py-2.5 sm:py-3 bg-[#121F35] border-b border-white/8 flex items-center justify-between"
                         >
                             <div class="flex items-center gap-2">
                                 <div class="flex gap-1.5">
@@ -191,7 +191,7 @@
                             >
                                 <div class="flex items-center gap-1.5">
                                     <div
-                                        class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"
+                                        class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"
                                     ></div>
                                     <span>live</span>
                                 </div>
@@ -202,20 +202,20 @@
                         <div class="p-3 sm:p-5 space-y-3 sm:space-y-4 text-xs sm:text-sm">
                             <!-- Status Banner -->
                             <div
-                                class="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-cyan-500/5 border border-cyan-500/20 rounded-lg"
+                                class="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-green-500/5 border border-green-500/20 rounded-lg"
                             >
                                 <div
                                     class="relative flex items-center justify-center shrink-0"
                                 >
                                     <div
-                                        class="w-2 h-2 rounded-full bg-cyan-400 animate-ping absolute"
+                                        class="w-2 h-2 rounded-full bg-green-400 animate-ping absolute"
                                     ></div>
                                     <div
-                                        class="w-2 h-2 rounded-full bg-cyan-400"
+                                        class="w-2 h-2 rounded-full bg-green-400"
                                     ></div>
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <div class="font-semibold text-cyan-300">
+                                    <div class="font-semibold text-green-300">
                                         All systems operational
                                     </div>
                                     <div class="text-xs text-gray-500 mt-0.5">
@@ -229,7 +229,7 @@
 
                             <!-- Mini Chart -->
                             <div
-                                class="bg-[#1A1A24] rounded-lg p-3 sm:p-4 border border-white/5"
+                                class="bg-[#121F35] rounded-lg p-3 sm:p-4 border border-white/5"
                             >
                                 <div class="text-xs text-gray-500 mb-2 sm:mb-3">
                                     Response time (24h)
@@ -250,12 +250,12 @@
                                             >
                                                 <stop
                                                     offset="0%"
-                                                    stop-color="#06b6d4"
+                                                    stop-color="#F59E0B"
                                                     stop-opacity="0.3"
                                                 />
                                                 <stop
                                                     offset="100%"
-                                                    stop-color="#06b6d4"
+                                                    stop-color="#F59E0B"
                                                     stop-opacity="0.0"
                                                 />
                                             </linearGradient>
@@ -268,7 +268,7 @@
                                         <path
                                             :d="chartLine"
                                             fill="none"
-                                            stroke="#06b6d4"
+                                            stroke="#F59E0B"
                                             stroke-width="2"
                                             class="transition-all duration-500"
                                         />
@@ -281,7 +281,7 @@
                                 <div
                                     v-for="service in services"
                                     :key="service.name"
-                                    class="flex items-center justify-between p-2 sm:p-3 bg-[#1A1A24] rounded-lg border border-white/5 hover:border-cyan-500/30 transition-colors group"
+                                    class="flex items-center justify-between p-2 sm:p-3 bg-[#121F35] rounded-lg border border-white/5 hover:border-amber-500/20 transition-colors group"
                                 >
                                     <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
                                         <div
@@ -292,7 +292,7 @@
                                                     'w-1.5 h-1.5 rounded-full',
                                                     service.status ===
                                                     'operational'
-                                                        ? 'bg-cyan-400 animate-pulse'
+                                                        ? 'bg-green-400 animate-pulse'
                                                         : 'bg-red-400',
                                                 ]"
                                             ></div>
@@ -311,7 +311,7 @@
                                     >
                                         <div class="hidden xs:block sm:block">
                                             <div
-                                                class="text-cyan-300 font-semibold"
+                                                class="text-amber-300 font-semibold"
                                             >
                                                 {{ service.uptime }}%
                                             </div>
@@ -351,7 +351,7 @@
                     >
                         One dashboard.
                         <span
-                            class="bg-linear-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
+                            class="bg-linear-to-r from-amber-300 via-orange-300 to-amber-400 bg-clip-text text-transparent"
                         >
                             All your services.
                         </span>
@@ -364,15 +364,15 @@
                 <!-- Simplified Dashboard -->
                 <div class="relative">
                     <div
-                        class="absolute -inset-4 bg-linear-to-r from-cyan-500/5 via-teal-500/5 to-emerald-500/5 rounded-3xl blur-3xl"
+                        class="absolute -inset-4 bg-amber-500/4 rounded-3xl blur-3xl"
                     ></div>
 
                     <div
-                        class="relative bg-[#16161E] rounded-2xl border border-white/10 overflow-hidden shadow-2xl"
+                        class="relative bg-[#0D1828] rounded-2xl border border-white/8 overflow-hidden shadow-2xl"
                         :style="{ fontFamily: 'JetBrains Mono, monospace' }"
                     >
                         <!-- Header -->
-                        <div class="p-4 sm:p-5 border-b border-white/10">
+                        <div class="p-4 sm:p-5 border-b border-white/8">
                             <div class="flex items-center justify-between mb-3 sm:mb-4">
                                 <div>
                                     <h3 class="text-lg sm:text-xl font-bold mb-0.5 sm:mb-1">
@@ -384,20 +384,20 @@
                                     </p>
                                 </div>
                                 <div
-                                    class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-cyan-500/10 border border-cyan-500/20 rounded-md"
+                                    class="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-green-500/10 border border-green-500/20 rounded-md"
                                 >
                                     <div class="flex items-center gap-1.5 sm:gap-2">
                                         <div
                                             class="relative flex items-center justify-center"
                                         >
                                             <div
-                                                class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping absolute"
+                                                class="w-1.5 h-1.5 rounded-full bg-green-400 animate-ping absolute"
                                             ></div>
                                             <div
-                                                class="w-1.5 h-1.5 rounded-full bg-cyan-400"
+                                                class="w-1.5 h-1.5 rounded-full bg-green-400"
                                             ></div>
                                         </div>
-                                        <span class="text-xs sm:text-sm text-cyan-300"
+                                        <span class="text-xs sm:text-sm text-green-300"
                                             >All up</span
                                         >
                                     </div>
@@ -406,14 +406,14 @@
                         </div>
 
                         <!-- Main Chart -->
-                        <div class="p-4 sm:p-5 border-b border-white/10">
+                        <div class="p-4 sm:p-5 border-b border-white/8">
                             <div class="flex items-center justify-between mb-3">
                                 <h4 class="text-xs sm:text-sm font-semibold text-gray-400">
                                     Response Times
                                 </h4>
                                 <div class="flex gap-1 sm:gap-1.5 text-xs">
                                     <button
-                                        class="px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded"
+                                        class="px-2 py-1 bg-amber-500/20 text-amber-300 rounded"
                                     >
                                         24h
                                     </button>
@@ -431,7 +431,7 @@
                             </div>
 
                             <div
-                                class="h-36 sm:h-48 bg-[#1A1A24] rounded-lg p-3 sm:p-4 relative border border-white/5"
+                                class="h-36 sm:h-48 bg-[#121F35] rounded-lg p-3 sm:p-4 relative border border-white/5"
                             >
                                 <svg
                                     class="w-full h-full"
@@ -448,12 +448,12 @@
                                         >
                                             <stop
                                                 offset="0%"
-                                                stop-color="#06b6d4"
+                                                stop-color="#F59E0B"
                                                 stop-opacity="0.2"
                                             />
                                             <stop
                                                 offset="100%"
-                                                stop-color="#06b6d4"
+                                                stop-color="#F59E0B"
                                                 stop-opacity="0.0"
                                             />
                                         </linearGradient>
@@ -479,7 +479,7 @@
                                     <path
                                         :d="mainChartLine"
                                         fill="none"
-                                        stroke="#06b6d4"
+                                        stroke="#F59E0B"
                                         stroke-width="2"
                                         class="transition-all duration-700"
                                     />
@@ -489,7 +489,7 @@
                                         :cx="animatedDotX"
                                         :cy="animatedDotY"
                                         r="3"
-                                        fill="#06b6d4"
+                                        fill="#F59E0B"
                                         class="drop-shadow-lg"
                                     >
                                         <animate
@@ -518,7 +518,7 @@
                             <div
                                 v-for="service in detailedServices"
                                 :key="service.name"
-                                class="flex items-center justify-between p-2.5 sm:p-3 bg-[#1A1A24] rounded-lg border border-white/5 hover:border-cyan-500/30 transition-colors cursor-pointer group"
+                                class="flex items-center justify-between p-2.5 sm:p-3 bg-[#121F35] rounded-lg border border-white/5 hover:border-amber-500/20 transition-colors cursor-pointer group"
                             >
                                 <div class="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                                     <div
@@ -528,7 +528,7 @@
                                             :class="[
                                                 'w-2 h-2 rounded-full',
                                                 service.status === 'operational'
-                                                    ? 'bg-cyan-400'
+                                                    ? 'bg-green-400'
                                                     : 'bg-red-400',
                                             ]"
                                         >
@@ -537,7 +537,7 @@
                                                     'w-2 h-2 rounded-full animate-ping',
                                                     service.status ===
                                                     'operational'
-                                                        ? 'bg-cyan-400'
+                                                        ? 'bg-green-400'
                                                         : 'bg-red-400',
                                                 ]"
                                             ></div>
@@ -568,7 +568,7 @@
                                 <div class="flex items-center gap-3 sm:gap-6 shrink-0 ml-2">
                                     <div class="text-right hidden sm:block">
                                         <div
-                                            class="text-xs sm:text-sm font-semibold text-cyan-300"
+                                            class="text-xs sm:text-sm font-semibold text-amber-300"
                                         >
                                             {{ service.uptime }}%
                                         </div>
@@ -610,7 +610,7 @@
                     >
                         Simple monitoring.
                         <span
-                            class="bg-linear-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
+                            class="bg-linear-to-r from-amber-300 via-orange-300 to-amber-400 bg-clip-text text-transparent"
                         >
                             Zero hassle.
                         </span>
@@ -623,12 +623,12 @@
                 <div class="grid sm:grid-cols-2 gap-3 sm:gap-4">
                     <!-- Feature 1 -->
                     <div
-                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all"
+                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/8 hover:border-amber-500/25 transition-all"
                     >
                         <div
-                            class="w-10 h-10 rounded-lg bg-linear-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/20 flex items-center justify-center mb-4"
+                            class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-4"
                         >
-                            <ChartBarIcon class="w-5 h-5 text-cyan-400" />
+                            <ChartBarIcon class="w-5 h-5 text-amber-400" />
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2">
                             Continuous Health Checks
@@ -642,12 +642,12 @@
 
                     <!-- Feature 2 -->
                     <div
-                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-teal-500/30 transition-all"
+                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/8 hover:border-amber-500/25 transition-all"
                     >
                         <div
-                            class="w-10 h-10 rounded-lg bg-linear-to-br from-teal-500/20 to-teal-500/5 border border-teal-500/20 flex items-center justify-center mb-4"
+                            class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-4"
                         >
-                            <BellAlertIcon class="w-5 h-5 text-teal-400" />
+                            <BellAlertIcon class="w-5 h-5 text-amber-400" />
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2">Instant Alerts</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
@@ -659,12 +659,12 @@
 
                     <!-- Feature 3 -->
                     <div
-                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-emerald-500/30 transition-all"
+                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/8 hover:border-amber-500/25 transition-all"
                     >
                         <div
-                            class="w-10 h-10 rounded-lg bg-linear-to-br from-emerald-500/20 to-emerald-500/5 border border-emerald-500/20 flex items-center justify-center mb-4"
+                            class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-4"
                         >
-                            <ChartPieIcon class="w-5 h-5 text-emerald-400" />
+                            <ChartPieIcon class="w-5 h-5 text-amber-400" />
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2">Historical Data</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
@@ -676,12 +676,12 @@
 
                     <!-- Feature 4 -->
                     <div
-                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/10 hover:border-cyan-500/30 transition-all"
+                        class="group p-5 sm:p-6 bg-linear-to-br from-white/[0.03] to-transparent rounded-xl border border-white/8 hover:border-amber-500/25 transition-all"
                     >
                         <div
-                            class="w-10 h-10 rounded-lg bg-linear-to-br from-cyan-500/20 to-cyan-500/5 border border-cyan-500/20 flex items-center justify-center mb-4"
+                            class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-4"
                         >
-                            <CreditCardIcon class="w-5 h-5 text-cyan-400" />
+                            <CreditCardIcon class="w-5 h-5 text-amber-400" />
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2">Self-Hosted</h3>
                         <p class="text-gray-400 text-sm leading-relaxed">
@@ -697,7 +697,7 @@
         <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative">
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div
-                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[700px] h-[200px] sm:h-[300px] bg-linear-to-r from-cyan-500/5 via-teal-500/5 to-emerald-500/5 rounded-full blur-[80px] sm:blur-[120px]"
+                    class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[700px] h-[200px] sm:h-[300px] bg-amber-500/5 rounded-full blur-[80px] sm:blur-[120px]"
                 ></div>
             </div>
 
@@ -710,7 +710,7 @@
                 >
                     Ready to stop wondering
                     <span
-                        class="block mt-1 sm:mt-2 bg-linear-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent"
+                        class="block mt-1 sm:mt-2 bg-linear-to-r from-amber-300 via-orange-300 to-amber-400 bg-clip-text text-transparent"
                     >
                         if your site is down?
                     </span>
@@ -726,7 +726,7 @@
                 >
                     <button
                         @click="handleDemo"
-                        class="group w-full sm:w-auto px-6 sm:px-7 py-3.5 bg-linear-to-r from-cyan-600 via-teal-600 to-emerald-600 rounded-lg font-semibold text-white hover:shadow-xl hover:shadow-teal-500/30 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
+                        class="group w-full sm:w-auto px-6 sm:px-7 py-3.5 bg-amber-500 rounded-lg font-semibold text-black hover:bg-amber-400 hover:shadow-xl hover:shadow-amber-500/30 transition-all flex items-center justify-center gap-2 text-sm sm:text-base"
                     >
                         <span>Try Demo</span>
                         <ArrowRightIcon
@@ -744,7 +744,7 @@
         </section>
 
         <!-- Footer -->
-        <footer class="border-t border-white/10 py-8 sm:py-10 px-4 sm:px-6 lg:px-8">
+        <footer class="border-t border-white/8 py-8 sm:py-10 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div
                     class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6"
@@ -752,7 +752,7 @@
                     <div class="flex items-center gap-2.5">
                         <div class="relative">
                             <div
-                                class="w-7 h-7 rounded-md bg-linear-to-br from-cyan-500 via-teal-500 to-emerald-500 flex items-center justify-center"
+                                class="w-7 h-7 rounded-md bg-amber-500 flex items-center justify-center shadow-md shadow-amber-500/20"
                             >
                                 <div
                                     class="w-2 h-2 rounded-full bg-white"

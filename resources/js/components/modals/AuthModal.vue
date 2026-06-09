@@ -107,12 +107,12 @@ const handleRegister = async () => {
 
                 <!-- Modal -->
                 <div
-                    class="relative bg-[#16161E] rounded-xl border border-white/10 shadow-2xl max-w-md w-full overflow-hidden"
+                    class="relative bg-[#0D1828] rounded-xl border border-white/8 shadow-2xl max-w-md w-full overflow-hidden"
                     :style="{ fontFamily: 'JetBrains Mono, monospace' }"
                 >
                     <!-- Header -->
                     <div
-                        class="px-6 py-6 border-b border-white/10 flex items-center justify-between"
+                        class="px-6 py-6 border-b border-white/8 flex items-center justify-between"
                     >
                         <div>
                             <h2 class="text-2xl font-bold text-white">
@@ -155,7 +155,7 @@ const handleRegister = async () => {
                                 v-model="name"
                                 type="text"
                                 placeholder="John Doe"
-                                class="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+                                class="w-full px-4 py-2.5 bg-white/5 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                                 :disabled="loading"
                             />
                         </div>
@@ -173,7 +173,7 @@ const handleRegister = async () => {
                                 v-model="email"
                                 type="email"
                                 placeholder="you@example.com"
-                                class="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+                                class="w-full px-4 py-2.5 bg-white/5 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                                 :disabled="loading"
                             />
                         </div>
@@ -192,7 +192,7 @@ const handleRegister = async () => {
                                     v-model="password"
                                     :type="showPassword ? 'text' : 'password'"
                                     placeholder="••••••••"
-                                    class="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all pr-10"
+                                    class="w-full px-4 py-2.5 bg-white/5 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all pr-10"
                                     :disabled="loading"
                                 />
                                 <button
@@ -223,7 +223,7 @@ const handleRegister = async () => {
                                 v-model="passwordConfirmation"
                                 type="password"
                                 placeholder="••••••••"
-                                class="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all"
+                                class="w-full px-4 py-2.5 bg-white/5 border border-white/8 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/20 transition-all"
                                 :disabled="loading"
                             />
                         </div>
@@ -232,12 +232,12 @@ const handleRegister = async () => {
                         <button
                             @click="mode === 'signin' ? handleSignIn() : handleRegister()"
                             :disabled="loading"
-                            class="w-full px-4 py-2.5 mt-2 bg-linear-to-r from-cyan-600/80 to-teal-600/80 hover:from-cyan-600 hover:to-teal-600 disabled:from-gray-600 disabled:to-gray-600 rounded-lg text-sm font-semibold transition-all disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                            class="w-full px-4 py-2.5 mt-2 bg-amber-500 hover:bg-amber-400 disabled:bg-gray-600 disabled:cursor-not-allowed rounded-lg text-sm font-semibold text-black transition-all flex items-center justify-center gap-2"
                         >
                             <BoltIcon v-if="!loading" class="w-4 h-4" />
                             <div
                                 v-else
-                                class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
+                                class="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"
                             ></div>
                             <span>{{
                                 loading
@@ -252,7 +252,7 @@ const handleRegister = async () => {
                                 Don't have an account?
                                 <button
                                     @click="switchMode('register')"
-                                    class="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                                    class="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
                                 >
                                     Sign up free
                                 </button>
@@ -261,7 +261,7 @@ const handleRegister = async () => {
                                 Already have an account?
                                 <button
                                     @click="switchMode('signin')"
-                                    class="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                                    class="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
                                 >
                                     Sign in
                                 </button>
@@ -270,10 +270,10 @@ const handleRegister = async () => {
                     </div>
 
                     <!-- Footer Info -->
-                    <div class="px-6 py-4 bg-[#1A1A24] border-t border-white/5">
+                    <div class="px-6 py-4 bg-[#121F35] border-t border-white/5">
                         <div class="flex items-start gap-3">
                             <LockClosedIcon
-                                class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"
+                                class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"
                             />
                             <p class="text-xs text-gray-500">
                                 Your data is secure. Passwords are hashed with bcrypt.

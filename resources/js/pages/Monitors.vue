@@ -1,7 +1,7 @@
 <template>
-    <div class="min-h-screen bg-[#0D0D12] text-white">
+    <div class="min-h-screen bg-[#070D1A] text-white">
         <!-- Header -->
-        <div class="border-b border-white/10 bg-[#0D0D12]/90 backdrop-blur-md">
+        <div class="border-b border-white/8 bg-[#070D1A]/90 backdrop-blur-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
                 <div class="flex items-center justify-between gap-3">
                     <div>
@@ -22,7 +22,7 @@
                     </div>
                     <button
                         @click="openAddModal"
-                        class="px-3 sm:px-4 py-2 sm:py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25 flex items-center gap-2 shrink-0"
+                        class="px-3 sm:px-4 py-2 sm:py-2 bg-amber-500 text-black text-sm font-medium rounded-lg hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/25 flex items-center gap-2 shrink-0"
                     >
                         <PlusIcon class="w-4 h-4" />
                         <span class="hidden sm:inline">Add Monitor</span>
@@ -36,7 +36,7 @@
             <!-- Loading -->
             <div v-if="loading" class="flex items-center justify-center py-16">
                 <div
-                    class="w-8 h-8 border-2 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin"
+                    class="w-8 h-8 border-2 border-amber-500/30 border-t-amber-400 rounded-full animate-spin"
                 ></div>
             </div>
 
@@ -53,7 +53,7 @@
                 <div
                     v-for="monitor in monitors"
                     :key="monitor.id"
-                    class="group p-4 sm:p-5 bg-[#16161E] border border-white/10 rounded-lg hover:border-cyan-500/30 transition-all cursor-pointer"
+                    class="group p-4 sm:p-5 bg-[#0D1828] border border-white/8 rounded-lg hover:border-amber-500/25 transition-all cursor-pointer"
                     @click="viewMonitor(monitor)"
                 >
                     <div class="flex items-start justify-between gap-3 sm:gap-4">
@@ -75,7 +75,7 @@
                                                 'JetBrains Mono, monospace',
                                         }"
                                         :class="{
-                                            'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20':
+                                            'bg-green-500/10 text-green-400 border border-green-500/20':
                                                 monitor.status ===
                                                 'operational',
                                             'bg-red-500/10 text-red-400 border border-red-500/20':
@@ -162,7 +162,7 @@
                             <button
                                 @click.stop="runCheckNow(monitor)"
                                 :disabled="checking === monitor.id"
-                                class="p-2 hover:bg-cyan-500/10 rounded-lg transition-colors min-w-9 flex items-center justify-center"
+                                class="p-2 hover:bg-amber-500/10 rounded-lg transition-colors min-w-9 flex items-center justify-center"
                                 title="Run check now"
                             >
                                 <ArrowPathIcon
@@ -194,12 +194,12 @@
             <!-- Empty State -->
             <div
                 v-if="!loading && !error && monitors.length === 0"
-                class="text-center py-16 bg-[#16161E] border border-white/10 rounded-lg"
+                class="text-center py-16 bg-[#0D1828] border border-white/8 rounded-lg"
             >
                 <div
-                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-linear-to-br from-cyan-500/20 to-teal-500/20 flex items-center justify-center"
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center"
                 >
-                    <ChartBarIcon class="w-8 h-8 text-cyan-400" />
+                    <ChartBarIcon class="w-8 h-8 text-amber-400" />
                 </div>
                 <h3 class="text-lg font-semibold mb-2">No monitors yet</h3>
                 <p class="text-gray-400 mb-4">
@@ -207,7 +207,7 @@
                 </p>
                 <button
                     @click="openAddModal"
-                    class="px-4 py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25"
+                    class="px-4 py-2 bg-amber-500 text-black text-sm font-medium rounded-lg hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/25"
                 >
                     Add Monitor
                 </button>
@@ -222,10 +222,10 @@
                 @click.self="closeModal"
             >
                 <div
-                    class="w-full max-w-2xl bg-[#16161E] border border-white/10 rounded-xl shadow-2xl"
+                    class="w-full max-w-2xl bg-[#0D1828] border border-white/8 rounded-xl shadow-2xl"
                 >
                     <div
-                        class="px-6 py-4 border-b border-white/10 flex items-center justify-between"
+                        class="px-6 py-4 border-b border-white/8 flex items-center justify-between"
                     >
                         <h2 class="text-xl font-bold">
                             {{ isEditing ? "Edit Monitor" : "Add Monitor" }}
@@ -257,7 +257,7 @@
                                 v-model="formData.name"
                                 type="text"
                                 placeholder="My Website"
-                                class="w-full px-4 py-2 bg-[#0D0D12] border border-white/10 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors"
+                                class="w-full px-4 py-2 bg-[#070D1A] border border-white/8 rounded-lg focus:border-amber-500/50 focus:outline-none focus:ring-1 focus:ring-amber-500/20 transition-colors"
                                 :style="{
                                     fontFamily: 'JetBrains Mono, monospace',
                                 }"
@@ -273,7 +273,7 @@
                                 v-model="formData.url"
                                 type="text"
                                 placeholder="https://example.com"
-                                class="w-full px-4 py-2 bg-[#0D0D12] border border-white/10 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors"
+                                class="w-full px-4 py-2 bg-[#070D1A] border border-white/8 rounded-lg focus:border-amber-500/50 focus:outline-none focus:ring-1 focus:ring-amber-500/20 transition-colors"
                                 :style="{
                                     fontFamily: 'JetBrains Mono, monospace',
                                 }"
@@ -287,7 +287,7 @@
                             >
                             <select
                                 v-model="formData.check_interval"
-                                class="w-full px-4 py-2 bg-[#0D0D12] border border-white/10 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors"
+                                class="w-full px-4 py-2 bg-[#070D1A] border border-white/8 rounded-lg focus:border-amber-500/50 focus:outline-none focus:ring-1 focus:ring-amber-500/20 transition-colors"
                                 :style="{
                                     fontFamily: 'JetBrains Mono, monospace',
                                 }"
@@ -314,7 +314,7 @@
                                 v-model="formData.expected_status_code"
                                 type="text"
                                 placeholder="200"
-                                class="w-full px-4 py-2 bg-[#0D0D12] border border-white/10 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors"
+                                class="w-full px-4 py-2 bg-[#070D1A] border border-white/8 rounded-lg focus:border-amber-500/50 focus:outline-none focus:ring-1 focus:ring-amber-500/20 transition-colors"
                                 :style="{
                                     fontFamily: 'JetBrains Mono, monospace',
                                 }"
@@ -332,7 +332,7 @@
                                 v-model="formData.timeout"
                                 type="number"
                                 placeholder="30"
-                                class="w-full px-4 py-2 bg-[#0D0D12] border border-white/10 rounded-lg focus:border-cyan-500 focus:outline-none transition-colors"
+                                class="w-full px-4 py-2 bg-[#070D1A] border border-white/8 rounded-lg focus:border-amber-500/50 focus:outline-none focus:ring-1 focus:ring-amber-500/20 transition-colors"
                                 :style="{
                                     fontFamily: 'JetBrains Mono, monospace',
                                 }"
@@ -343,7 +343,7 @@
                             <input
                                 v-model="formData.track_ssl"
                                 type="checkbox"
-                                class="w-4 h-4 rounded border-white/10 bg-[#0D0D12] text-cyan-500 focus:ring-cyan-500 focus:ring-offset-0"
+                                class="w-4 h-4 rounded border-white/8 bg-[#070D1A] text-amber-500 focus:ring-amber-500 focus:ring-offset-0"
                             />
                             <div>
                                 <div class="text-sm font-medium text-gray-300">
@@ -357,7 +357,7 @@
                     </div>
 
                     <div
-                        class="px-6 py-4 border-t border-white/10 flex items-center justify-end gap-3"
+                        class="px-6 py-4 border-t border-white/8 flex items-center justify-end gap-3"
                     >
                         <button
                             @click="closeModal"
@@ -368,11 +368,11 @@
                         <button
                             @click="saveMonitor"
                             :disabled="saving"
-                            class="px-4 py-2 bg-linear-to-r from-cyan-600 to-teal-600 text-sm font-medium rounded-lg hover:from-cyan-500 hover:to-teal-500 transition-all shadow-lg shadow-cyan-500/25 disabled:opacity-50 flex items-center gap-2"
+                            class="px-4 py-2 bg-amber-500 text-black text-sm font-medium rounded-lg hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/25 disabled:opacity-50 flex items-center gap-2"
                         >
                             <div
                                 v-if="saving"
-                                class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
+                                class="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"
                             ></div>
                             {{ isEditing ? "Save Changes" : "Add Monitor" }}
                         </button>

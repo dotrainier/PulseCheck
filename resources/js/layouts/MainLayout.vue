@@ -1,8 +1,8 @@
 <template>
-    <div class="min-h-screen bg-[#0D0D12] text-white">
+    <div class="min-h-screen bg-[#070D1A] text-white">
         <!-- Mobile top bar -->
         <div
-            class="lg:hidden fixed top-0 left-0 right-0 h-14 bg-[#16161E] border-b border-white/10 z-40 flex items-center px-4 gap-3 shrink-0"
+            class="lg:hidden fixed top-0 left-0 right-0 h-14 bg-[#0D1828] border-b border-white/8 z-40 flex items-center px-4 gap-3 shrink-0"
         >
             <button
                 @click="sidebarOpen = !sidebarOpen"
@@ -13,7 +13,7 @@
             </button>
             <div class="flex items-center gap-2">
                 <div
-                    class="w-6 h-6 rounded-md bg-linear-to-br from-cyan-500 via-teal-500 to-emerald-500 flex items-center justify-center relative"
+                    class="w-6 h-6 rounded-md bg-amber-500 flex items-center justify-center relative shadow-lg shadow-amber-500/30"
                 >
                     <div
                         class="w-1.5 h-1.5 rounded-full bg-white animate-ping absolute"
@@ -39,16 +39,16 @@
 
         <!-- Sidebar -->
         <aside
-            class="fixed inset-y-0 left-0 w-64 xl:w-72 bg-[#16161E] border-r border-white/10 z-50 flex flex-col transition-transform duration-300 ease-in-out"
+            class="fixed inset-y-0 left-0 w-64 xl:w-72 bg-[#0D1828] border-r border-white/8 z-50 flex flex-col transition-transform duration-300 ease-in-out"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
         >
             <!-- Logo -->
             <div
-                class="h-16 flex items-center gap-2.5 px-6 border-b border-white/10 shrink-0"
+                class="h-16 flex items-center gap-2.5 px-6 border-b border-white/8 shrink-0"
             >
                 <div class="relative">
                     <div
-                        class="w-7 h-7 rounded-md bg-linear-to-br from-cyan-500 via-teal-500 to-emerald-500 flex items-center justify-center"
+                        class="w-7 h-7 rounded-md bg-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/30"
                     >
                         <div
                             class="w-2 h-2 rounded-full bg-white animate-ping absolute"
@@ -81,7 +81,7 @@
                     @click="sidebarOpen = false"
                     class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all"
                     :class="{
-                        'bg-linear-to-r from-cyan-600 to-teal-600 text-white shadow-lg shadow-cyan-500/25':
+                        'bg-amber-500/15 text-amber-300 border border-amber-500/25 shadow-sm':
                             isActive(item.path),
                         'text-gray-400 hover:text-white hover:bg-white/5':
                             !isActive(item.path),
@@ -93,10 +93,10 @@
             </nav>
 
             <!-- User Section -->
-            <div class="p-4 border-t border-white/10 shrink-0">
+            <div class="p-4 border-t border-white/8 shrink-0">
                 <div class="flex items-center gap-3 px-3 py-2">
                     <div
-                        class="w-8 h-8 rounded-full bg-linear-to-br from-cyan-500 to-teal-500 flex items-center justify-center text-sm font-bold shrink-0"
+                        class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm font-bold text-amber-400 shrink-0"
                     >
                         {{ userInitial }}
                     </div>
