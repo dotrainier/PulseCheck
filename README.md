@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-**[https://your-demo-url.com](https://your-demo-url.com)**
+**[https://getpulsecheck.tech](https://getpulsecheck.tech/)**
 
 Use the credentials below to explore the full dashboard — no sign-up required:
 
@@ -21,9 +21,9 @@ Use the credentials below to explore the full dashboard — no sign-up required:
 
 ## Screenshots
 
-| Landing Page | Dashboard | Monitor Detail |
-|---|---|---|
-| ![Landing](docs/screenshots/landing.png) | ![Dashboard](docs/screenshots/dashboard.png) | ![Monitor](docs/screenshots/monitor-detail.png) |
+| Landing Page                                  | Dashboard                                    | Monitor Detail                                  |
+| --------------------------------------------- | -------------------------------------------- | ----------------------------------------------- |
+| ![Landing](docs/screenshots/landing_page.png) | ![Dashboard](docs/screenshots/dashboard.png) | ![Monitor](docs/screenshots/monitor-detail.png) |
 
 > **To add screenshots:** run the app locally, take screenshots, and place them in `docs/screenshots/`.
 
@@ -62,17 +62,17 @@ PulseCheck follows a **decoupled SPA + REST API** architecture:
 
 ## Tech Stack
 
-| Category          | Technology                                    |
-| ----------------- | --------------------------------------------- |
-| Backend Framework | Laravel 13 (API-only)                         |
-| Frontend          | Vue.js 3 (Composition API) + Vue Router 4     |
-| State Management  | Pinia                                         |
-| Styling           | Tailwind CSS v4 + Vite                        |
-| Database          | PostgreSQL 16                                 |
-| Background Jobs   | Laravel Queue Workers                         |
-| Scheduling        | Laravel Scheduler (cron)                      |
-| Email Alerts      | SMTP (Gmail, Mailgun, etc.)                   |
-| Containerization  | Docker + Docker Compose                       |
+| Category          | Technology                                |
+| ----------------- | ----------------------------------------- |
+| Backend Framework | Laravel 13 (API-only)                     |
+| Frontend          | Vue.js 3 (Composition API) + Vue Router 4 |
+| State Management  | Pinia                                     |
+| Styling           | Tailwind CSS v4 + Vite                    |
+| Database          | PostgreSQL 16                             |
+| Background Jobs   | Laravel Queue Workers                     |
+| Scheduling        | Laravel Scheduler (cron)                  |
+| Email Alerts      | SMTP (Gmail, Mailgun, etc.)               |
+| Containerization  | Docker + Docker Compose                   |
 
 ---
 
@@ -164,20 +164,20 @@ VITE_API_URL=
 
 All endpoints require `Authorization: Bearer <token>` except `/api/signin` and `/api/register`.
 
-| Method | Endpoint                       | Description                     |
-| ------ | ------------------------------ | ------------------------------- |
-| POST   | `/api/register`                | Create account                  |
-| POST   | `/api/signin`                  | Authenticate and get token      |
-| POST   | `/api/signout`                 | Revoke current token            |
-| GET    | `/api/dashboard/stats`         | Aggregated system health        |
-| GET    | `/api/monitors`                | List all monitors                |
-| POST   | `/api/monitors`                | Create a new monitor            |
-| GET    | `/api/monitors/{id}`           | Monitor detail + history        |
-| PUT    | `/api/monitors/{id}`           | Update monitor settings         |
-| DELETE | `/api/monitors/{id}`           | Delete monitor                  |
-| POST   | `/api/monitors/{id}/check`     | Run an instant health check     |
-| GET    | `/api/incidents`               | List incidents (filterable)     |
-| GET    | `/api/incidents/{id}`          | Incident detail with timeline   |
+| Method | Endpoint                   | Description                   |
+| ------ | -------------------------- | ----------------------------- |
+| POST   | `/api/register`            | Create account                |
+| POST   | `/api/signin`              | Authenticate and get token    |
+| POST   | `/api/signout`             | Revoke current token          |
+| GET    | `/api/dashboard/stats`     | Aggregated system health      |
+| GET    | `/api/monitors`            | List all monitors             |
+| POST   | `/api/monitors`            | Create a new monitor          |
+| GET    | `/api/monitors/{id}`       | Monitor detail + history      |
+| PUT    | `/api/monitors/{id}`       | Update monitor settings       |
+| DELETE | `/api/monitors/{id}`       | Delete monitor                |
+| POST   | `/api/monitors/{id}/check` | Run an instant health check   |
+| GET    | `/api/incidents`           | List incidents (filterable)   |
+| GET    | `/api/incidents/{id}`      | Incident detail with timeline |
 
 ---
 

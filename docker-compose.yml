@@ -1,15 +1,37 @@
 services:
+    postgres:
+        image: postgres:16
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: pulsecheck
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: ygoSFZIzErHs8Jkci7da23Sk6IO9MGy
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d pulsecheck"]
+            interval: 5s
+            retries: 10
+
     app:
         build: .
+        restart: unless-stopped
         env_file: .env.docker
         volumes:
             - app_public:/app/public
             - app_storage:/app/storage
         depends_on:
-            - postgres
+            postgres:
+                condition: service_healthy
+        healthcheck:
+            test: ["CMD-SHELL", "pgrep php-fpm > /dev/null"]
+            interval: 5s
+            retries: 10
+            start_period: 30s
 
     nginx:
         image: nginx:alpine
+        restart: unless-stopped
         ports:
             - "80:80"
             - "443:443"
@@ -18,38 +40,32 @@ services:
             - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
             - /etc/letsencrypt:/etc/letsencrypt:ro
         depends_on:
-            - app
+            app:
+                condition: service_healthy
 
     queue:
         build: .
+        restart: unless-stopped
         env_file: .env.docker
         entrypoint: []
         command: php artisan queue:work --tries=3 --timeout=60
         volumes:
             - app_storage:/app/storage
         depends_on:
-            - postgres
+            app:
+                condition: service_healthy
 
     scheduler:
         build: .
+        restart: unless-stopped
         env_file: .env.docker
         entrypoint: []
         command: php artisan schedule:work
         volumes:
             - app_storage:/app/storage
         depends_on:
-            - postgres
-
-    postgres:
-        image: postgres:16
-        environment:
-            POSTGRES_DB: pulsecheck
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: ygoSFZIzErHs8Jkci7da23Sk6IO9MGy
-        ports:
-            - "5432:5432"
-        volumes:
-            - postgres_data:/var/lib/postgresql/data
+            app:
+                condition: service_healthy
 
 volumes:
     app_public:

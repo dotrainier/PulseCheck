@@ -1,11 +1,6 @@
 #!/bin/sh
 set -e
 
-echo "Waiting for PostgreSQL..."
-until php artisan db:show > /dev/null 2>&1; do
-    sleep 2
-done
-
 echo "Running migrations..."
 php artisan migrate --force
 
