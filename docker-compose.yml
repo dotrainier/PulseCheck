@@ -24,7 +24,7 @@ services:
             postgres:
                 condition: service_healthy
         healthcheck:
-            test: ["CMD-SHELL", "pgrep php-fpm > /dev/null"]
+            test: ["CMD-SHELL", "ss -tln | grep -q ':9000'"]
             interval: 5s
             retries: 10
             start_period: 30s
