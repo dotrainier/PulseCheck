@@ -21,11 +21,9 @@ Use the credentials below to explore the full dashboard — no sign-up required:
 
 ## Screenshots
 
-| Landing Page                                  | Dashboard                                    | Monitor Detail                                  |
-| --------------------------------------------- | -------------------------------------------- | ----------------------------------------------- |
-| ![Landing](docs/screenshots/landing_page.png) | ![Dashboard](docs/screenshots/dashboard.png) | ![Monitor](docs/screenshots/monitor-detail.png) |
-
-> **To add screenshots:** run the app locally, take screenshots, and place them in `docs/screenshots/`.
+| Landing Page                             | Dashboard                                    | Monitor Detail                                  |
+| ---------------------------------------- | -------------------------------------------- | ----------------------------------------------- |
+| ![Landing](docs/screenshots/landing.png) | ![Dashboard](docs/screenshots/dashboard.png) | ![Monitor](docs/screenshots/monitor-detail.png) |
 
 ---
 
