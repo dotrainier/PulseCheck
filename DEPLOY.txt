@@ -1,0 +1,52 @@
+DEPLOY GUIDE
+============
+
+
+NORMAL CODE CHANGES (no migration, no volume wipe)
+----------------------------------------------------
+git pull
+docker compose build --no-cache
+docker compose down
+docker compose up -d
+
+
+NEW MIGRATION ADDED
+--------------------
+git pull
+docker compose build --no-cache
+docker compose down
+docker compose up -d
+# migrations run automatically on startup
+
+
+FRESH START (wipe all data and re-migrate)
+-------------------------------------------
+git pull
+docker compose build --no-cache
+docker compose down -v
+docker compose up -d
+# -v removes all volumes including the database
+
+
+SEED THE DATABASE
+------------------
+# Only after containers are up and running
+docker compose exec app php artisan db:seed
+
+# Run a specific seeder
+docker compose exec app php artisan db:seed --class=ExampleSeeder
+
+
+VERIFY EVERYTHING IS RUNNING
+------------------------------
+docker compose ps
+docker compose logs app
+docker compose logs nginx
+curl -Ik https://getpulsecheck.tech
+
+
+NOTES
+------
+- Never use "docker compose down -v" in production unless you want to wipe the database
+- .env.docker is not in git, keep a copy somewhere safe
+- SSL certs are at /etc/letsencrypt on the host (not in docker)
