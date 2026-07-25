@@ -42,6 +42,7 @@ services:
     queue:
         build: .
         restart: unless-stopped
+        user: "www-data:www-data"
         env_file: .env
         entrypoint: []
         command: php artisan queue:work --tries=3 --timeout=60
@@ -56,6 +57,7 @@ services:
     scheduler:
         build: .
         restart: unless-stopped
+        user: "www-data:www-data"
         env_file: .env
         entrypoint: []
         command: php artisan schedule:work

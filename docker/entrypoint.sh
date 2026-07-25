@@ -1,6 +1,9 @@
 #!/bin/sh
 set -e
 
+echo "Fixing storage & cache permissions..."
+chown -R www-data:www-data storage bootstrap/cache
+
 echo "Running migrations..."
 php artisan migrate --force
 
