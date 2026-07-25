@@ -2,29 +2,18 @@ DEPLOY GUIDE
 ============
 
 
-NORMAL CODE CHANGES (no migration, no volume wipe)
-----------------------------------------------------
+DEPLOY CODE CHANGES (including new migrations)
+----------------------------------------------
 git pull
-docker compose build --no-cache
-docker compose down
-docker compose up -d
-
-
-NEW MIGRATION ADDED
---------------------
-git pull
-docker compose build --no-cache
-docker compose down
-docker compose up -d
-# migrations run automatically on startup
+docker compose up -d --build
+# only changed containers are recreated; migrations run automatically on startup
 
 
 FRESH START (wipe all data and re-migrate)
 -------------------------------------------
 git pull
-docker compose build --no-cache
 docker compose down -v
-docker compose up -d
+docker compose up -d --build
 # -v removes all volumes including the database
 
 
