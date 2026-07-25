@@ -5,7 +5,7 @@ services:
         environment:
             POSTGRES_DB: pulsecheck
             POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: ygoSFZIzErHs8Jkci7da23Sk6IO9MGy
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
         volumes:
             - postgres_data:/var/lib/postgresql/data
         healthcheck:
@@ -16,7 +16,7 @@ services:
     app:
         build: .
         restart: unless-stopped
-        env_file: .env.docker
+        env_file: .env
         volumes:
             - app_public:/app/public
             - app_storage:/app/storage
@@ -40,7 +40,7 @@ services:
     queue:
         build: .
         restart: unless-stopped
-        env_file: .env.docker
+        env_file: .env
         entrypoint: []
         command: php artisan queue:work --tries=3 --timeout=60
         volumes:
@@ -51,7 +51,7 @@ services:
     scheduler:
         build: .
         restart: unless-stopped
-        env_file: .env.docker
+        env_file: .env
         entrypoint: []
         command: php artisan schedule:work
         volumes:
