@@ -48,7 +48,10 @@ services:
         volumes:
             - app_storage:/app/storage
         depends_on:
-            - app
+            postgres:
+                condition: service_healthy
+            app:
+                condition: service_started
 
     scheduler:
         build: .
@@ -59,7 +62,10 @@ services:
         volumes:
             - app_storage:/app/storage
         depends_on:
-            - app
+            postgres:
+                condition: service_healthy
+            app:
+                condition: service_started
 
 volumes:
     app_public:
