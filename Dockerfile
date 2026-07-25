@@ -32,14 +32,17 @@ COPY . .
 RUN composer dump-autoload --optimize \
     && npm run build
 
-# Storage permissions
+# Storage permissions baked at build time
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
-# Entrypoint
-COPY docker/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 EXPOSE 9000
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Runtime startup: re-fix permissions (queue/scheduler share this volume),
+# run migrations, cache config/routes, link storage, then hand off to php-fpm
+ENTRYPOINT chown -R www-data:www-data storage bootstrap/cache \
+    && php artisan migrate --force \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan storage:link --force \
+    && exec php-fpm
