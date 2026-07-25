@@ -13,7 +13,7 @@ Use the credentials below to explore the full dashboard — no sign-up required:
 | Field    | Value              |
 | -------- | ------------------ |
 | Email    | `test@example.com` |
-| Password | `password`         |
+| Password | `Password123`      |
 
 > The demo environment resets daily. Feel free to create monitors and explore all features.
 

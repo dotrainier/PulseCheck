@@ -9,12 +9,22 @@ docker compose up -d --build
 # only changed containers are recreated; migrations run automatically on startup
 
 
+FRONTEND LOOKS STALE AFTER A DEPLOY
+------------------------------------
+# Vue assets live in the app_public named volume, which does not auto-refresh
+# on a normal up. Only run this if the site shows OLD frontend after a deploy.
+docker compose down
+docker volume rm pulsecheck_app_public
+docker compose up -d --build
+# app_public is rebuilt from the new image; postgres_data is untouched (no data loss)
+
+
 FRESH START (wipe all data and re-migrate)
 -------------------------------------------
 git pull
 docker compose down -v
 docker compose up -d --build
-# -v removes all volumes including the database
+# -v removes ALL volumes including the database
 
 
 SEED THE DATABASE
@@ -24,6 +34,27 @@ docker compose exec app php artisan db:seed
 
 # Run a specific seeder
 docker compose exec app php artisan db:seed --class=ExampleSeeder
+
+
+FIRST-TIME DEPLOY ON A NEW SERVER
+----------------------------------
+# Assumes Ubuntu, DNS A records (apex + www) already point at this box's IP
+sudo apt update && sudo apt upgrade -y
+curl -fsSL https://get.docker.com | sudo sh
+sudo usermod -aG docker ubuntu && newgrp docker
+
+# TLS cert on the host (nginx.conf reads from /etc/letsencrypt)
+sudo apt install -y certbot
+sudo certbot certonly --standalone -d getpulsecheck.tech -d www.getpulsecheck.tech
+
+# App
+git clone <repo-url>
+cd pulsecheck
+cp .env.example .env
+nano .env          # set DB_HOST=postgres, DB_PASSWORD, APP_URL, APP_KEY, MAIL_*
+docker compose up -d --build
+docker compose exec app php artisan key:generate   # if APP_KEY was blank
+docker compose exec app php artisan db:seed        # optional demo data
 
 
 VERIFY EVERYTHING IS RUNNING
@@ -37,5 +68,7 @@ curl -Ik https://getpulsecheck.tech
 NOTES
 ------
 - Never use "docker compose down -v" in production unless you want to wipe the database
-- .env.docker is not in git, keep a copy somewhere safe
-- SSL certs are at /etc/letsencrypt on the host (not in docker)
+- .env is not in git, keep a copy somewhere safe
+- DB_HOST must be "postgres" (the compose service name), not 127.0.0.1
+- SSL certs are at /etc/letsencrypt on the host, mounted read-only into nginx
+- certbot auto-renews via a scheduled task; no manual renewal needed
